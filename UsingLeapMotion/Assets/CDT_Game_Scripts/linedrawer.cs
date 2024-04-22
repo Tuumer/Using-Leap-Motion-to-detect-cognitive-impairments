@@ -29,9 +29,5 @@ public class Line : MonoBehaviour
         {
             SetPoint(position);
         }
-
-
-
     }
-
 }
