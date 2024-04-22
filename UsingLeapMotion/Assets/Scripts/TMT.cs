@@ -1,17 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 public class TMT : MonoBehaviour
 {
-    [SerializeField] private GameObject circlePrefab;
-    [SerializeField] private int numCircles;
-    private int[] numberOrder;
-    [SerializeField]private List<GameObject> circles;
-    [SerializeField] TextMeshProUGUI textComp;
+    [SerializeField]
+    private GameObject circlePrefab;
 
+    [SerializeField]
+    private int numCircles;
+    private int[] numberOrder;
+
+    [SerializeField]
+    private List<GameObject> circles;
+
+    [SerializeField]
+    TextMeshProUGUI textComp;
 
     // Start is called before the first frame update
     public void Start()
@@ -21,33 +27,46 @@ public class TMT : MonoBehaviour
         PlaceCircles();
     }
 
-    private void SetupData(){
+    private void SetupData()
+    {
         numberOrder = new int[numCircles];
-        for(int i=0;i<numCircles;i++){
-            numberOrder[i]=i+1;
+        for (int i = 0; i < numCircles; i++)
+        {
+            numberOrder[i] = i + 1;
             Debug.Log(numberOrder[i]);
         }
     }
 
-    private void PlaceCircles(){
-
+    private void PlaceCircles()
+    {
         RectTransform canvasRect = transform.parent.GetComponent<RectTransform>();
-        
+
         float screenWidth = Screen.width;
         float screenHeight = Screen.height;
-        
-        float padding=100f;
-        float radius=100f;
 
-        for(int i=0;i<numCircles;i++){
-            float randomX = UnityEngine.Random.Range(padding+radius,screenWidth-padding-radius);
-            float randomY = UnityEngine.Random.Range(padding+radius,screenHeight-padding-radius);
-            
-            GameObject circleObject = Instantiate(circlePrefab,new Vector3(randomX,randomY,0f),Quaternion.identity);
-            
+        float padding = 100f;
+        float radius = 100f;
 
-            if(textComp !=null){
-                textComp.text=(numberOrder[i]+1).ToString();
+        for (int i = 0; i < numCircles; i++)
+        {
+            float randomX = UnityEngine.Random.Range(
+                padding + radius,
+                screenWidth - padding - radius
+            );
+            float randomY = UnityEngine.Random.Range(
+                padding + radius,
+                screenHeight - padding - radius
+            );
+
+            GameObject circleObject = Instantiate(
+                circlePrefab,
+                new Vector3(randomX, randomY, 0f),
+                Quaternion.identity
+            );
+
+            if (textComp != null)
+            {
+                textComp.text = (numberOrder[i] + 1).ToString();
                 Debug.Log("hello");
             }
 
@@ -85,10 +104,10 @@ public class TMT : MonoBehaviour
 //     private void PlaceCircles(){
 
 //         RectTransform canvasRect = transform.parent.GetComponent<RectTransform>();
-        
+
 //         float screenWidth = Screen.width;
 //         float screenHeight = Screen.height;
-        
+
 //         float padding = 100f;
 //         float radius = 100f;
 
@@ -103,9 +122,9 @@ public class TMT : MonoBehaviour
 //                 randomY = UnityEngine.Random.Range(padding + radius, screenHeight - padding - radius);
 //                 overlapping = CheckOverlap(new Vector2(randomX, randomY), radius);
 //             }
-            
+
 //             GameObject circleObject = Instantiate(circlePrefab, new Vector3(randomX, randomY, 0f), Quaternion.identity);
-            
+
 //             if(textComp != null){
 //                 textComp.text = (numberOrder[i] + 1).ToString();
 //                 Debug.Log("hello");
@@ -127,4 +146,3 @@ public class TMT : MonoBehaviour
 //         return false;
 //     }
 // }
-
