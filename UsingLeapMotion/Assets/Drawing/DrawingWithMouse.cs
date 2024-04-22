@@ -1,24 +1,25 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using UnityEngine;
 
 namespace _Project
 {
     public class ConnectionManager : MonoBehaviour
     {
-        public LineRenderer lineRen;
-        public LayerMask targetLayerMask;
-        private Camera _mainCamera;
-        private bool _isDrawing;
-
         public List<GameObject> connectedObjects = new List<GameObject>();
         public List<Vector3> drawPositions = new List<Vector3>();
+        public LineRenderer lineRen;
+        public LayerMask targetLayerMask;
+        public Material correct;
+        public Material incorrect;
+        private Camera _mainCamera;
+        private bool _isDrawing;
+        private int currentSphereIndex = 0;
+        private GameObject lastHoveredObject;
 
         private void Start()
         {
             _mainCamera = Camera.main;
+            HideAllSpheresExceptFirst();
         }
 
         private void Update()
@@ -28,9 +29,12 @@ namespace _Project
                 var ray = GetRayOnMousePosition();
                 if (Physics.Raycast(ray, out var raycastHit, 1920f, targetLayerMask))
                 {
-                    _isDrawing = true;
-                    connectedObjects.Add(raycastHit.transform.gameObject);
-                    lineRen.gameObject.SetActive(true);
+                    if (raycastHit.transform.CompareTag("tmtstart"))
+                    {
+                        _isDrawing = true;
+                        connectedObjects.Add(raycastHit.transform.gameObject);
+                        lineRen.gameObject.SetActive(true);
+                    }
                 }
             }
 
@@ -42,7 +46,17 @@ namespace _Project
                     var targetObject = raycastHit.transform.gameObject;
                     if (!connectedObjects.Contains(targetObject))
                     {
-                        connectedObjects.Add(raycastHit.transform.gameObject);
+                        if (targetObject.CompareTag("tmtstart"))
+                        {
+                            if (connectedObjects.Count == 0 || !connectedObjects[connectedObjects.Count - 1].CompareTag("endtmt"))
+                            {
+                                connectedObjects.Add(targetObject);
+                            }
+                        }
+                        else
+                        {
+                            connectedObjects.Add(targetObject);
+                        }
                     }
                 }
                 DrawLine();
@@ -50,10 +64,41 @@ namespace _Project
 
             if (Input.GetMouseButtonUp(0) && _isDrawing)
             {
+                float correctRatio = CountCorrectObjects();
+                Debug.Log("Ratio of correct objects selected: " + correctRatio);
                 _isDrawing = false;
                 connectedObjects.Clear();
                 DeActiveDrawing();
             }
+
+            // Additional logic for selecting next sphere based on tag order
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                currentSphereIndex++;
+                if (currentSphereIndex < connectedObjects.Count)
+                {
+                    connectedObjects[currentSphereIndex].SetActive(true);
+                }
+            }
+        }
+
+        private void OnMouseEnter()
+        {
+            if (lastHoveredObject != null)
+            {
+                lastHoveredObject.GetComponent<Renderer>().material = correct;
+            }
+            lastHoveredObject = gameObject;
+            GetComponent<Renderer>().material = incorrect;
+        }
+
+        private void OnMouseExit()
+        {
+            if (lastHoveredObject != null)
+            {
+                lastHoveredObject.GetComponent<Renderer>().material = correct;
+            }
+            lastHoveredObject = null;
         }
 
 
@@ -74,11 +119,6 @@ namespace _Project
                     drawPositions.Add(targetObject.transform.position);
                 }
 
-                var inputDrawPosition = GetMouseWorldInputPosition();
-
-
-                drawPositions.Add(inputDrawPosition);
-
                 lineRen.positionCount = drawPositions.Count;
                 lineRen.SetPositions(drawPositions.ToArray());
             }
@@ -97,6 +137,36 @@ namespace _Project
             lineRen.gameObject.SetActive(false);
         }
 
+        private void HideAllSpheresExceptFirst()
+        {
+            for (int i = 0; i < connectedObjects.Count; i++)
+            {
+                if (i != 0)
+                {
+                    connectedObjects[i].SetActive(false);
+                }
+            }
+        }
 
+        private float CountCorrectObjects()
+        {
+            string[] expectedTags = { "tmtstart", "2", "3", "4", "5", "6", "7", "endtmt" };
+            int correctCount = 0;
+
+            int minLength = Mathf.Min(connectedObjects.Count, expectedTags.Length);
+            for (int i = 0; i < minLength; i++)
+            {
+                if (connectedObjects[i].CompareTag(expectedTags[i]))
+                {
+                    correctCount++;
+                }
+                else
+                {
+                    break; // Прерываем цикл, если порядок нарушен
+                }
+            }
+
+            return (float)correctCount / expectedTags.Length;
+        }
     }
 }

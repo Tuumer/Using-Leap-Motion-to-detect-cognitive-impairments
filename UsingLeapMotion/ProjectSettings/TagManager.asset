@@ -3,7 +3,16 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - tmtstart
+  - 2
+  - 3
+  - 4
+  - 5
+  - 6
+  - 7
+  - tmtend
+  - endtmt
   layers:
   - Default
   - TransparentFX
