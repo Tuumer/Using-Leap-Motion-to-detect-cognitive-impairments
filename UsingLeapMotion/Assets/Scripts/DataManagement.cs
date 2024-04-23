@@ -12,15 +12,17 @@ public class DataManagement : MonoBehaviour
     // public Text sex;
     public TextMeshProUGUI full_name;
     public TextMeshProUGUI sex;
+    public TextMeshProUGUI birthDate;
+    public Toggle togl;
+    public TextMeshProUGUI buttonText;
+
 
     string database_name = "URI=file:" + Application.dataPath + "/Resources/leapmotion.db";
-    // Start is called before the first frame update
+    
     void Start()
     {
-        
     }
 
-    // Update is called once per frame
     void Update()
     {
         
@@ -35,18 +37,38 @@ public class DataManagement : MonoBehaviour
     // }
 
     public void addEntry(){
+            
+            string gender = togl.isOn ? "Male" : "Female";
+
+            Debug.Log(gender);
 
         using(var connection = new SqliteConnection(database_name)){
             connection.Open();
 
             using(var command = connection.CreateCommand()){
-                command.CommandText = "INSERT INTO Patient (Full_name, Sex) VALUES(@fullName, @sex)";
+                command.CommandText = "INSERT INTO Patient (Full_name, birth_date, sex) VALUES(@fullName, @birthDate, @gender)";
                 command.Parameters.AddWithValue("@fullName", full_name.text);
-                command.Parameters.AddWithValue("@sex", sex.text);
+                command.Parameters.AddWithValue("@birthDate", birthDate.text);
+                command.Parameters.AddWithValue("@gender", gender);
                 command.ExecuteNonQuery();
             }
             connection.Close();
         }
 
     }
+
+    public void addResultsTMT(){
+            
+        using(var connection = new SqliteConnection(database_name)){
+            connection.Open();
+
+            using(var command = connection.CreateCommand()){
+                command.CommandText = "INSERT INTO Patient (tmt_result) VALUES(@score_tmt)";
+                command.Parameters.AddWithValue("@fullName", full_name.text);
+                command.ExecuteNonQuery();
+            }
+            connection.Close();
+        }
+
+    }   
 }

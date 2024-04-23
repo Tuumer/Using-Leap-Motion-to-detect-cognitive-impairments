@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 namespace _Project
 {
@@ -16,10 +17,14 @@ namespace _Project
         private int currentSphereIndex = 0;
         private GameObject lastHoveredObject;
 
+        private float startTime;
+        private float duration;
+
         private void Start()
         {
             _mainCamera = Camera.main;
             HideAllSpheresExceptFirst();
+            startTime = Time.time;
         }
 
         private void Update()
@@ -65,10 +70,14 @@ namespace _Project
             if (Input.GetMouseButtonUp(0) && _isDrawing)
             {
                 float correctRatio = CountCorrectObjects();
-                Debug.Log("Ratio of correct objects selected: " + correctRatio);
+                Debug.Log("Ratio of correct objects selected: " + correctRatio*100f+"%");
                 _isDrawing = false;
                 connectedObjects.Clear();
                 DeActiveDrawing();
+                duration = Time.time - startTime;
+
+                DataTransfer.time_tmt = (float)Math.Round(duration*100)/100;
+                DataTransfer.score_tmt = correctRatio*100f;
             }
 
             // Additional logic for selecting next sphere based on tag order
@@ -167,6 +176,11 @@ namespace _Project
             }
 
             return (float)correctCount / expectedTags.Length;
+        }
+
+        private void buttonChecks()
+        {
+            Debug.Log("Clicked");
         }
     }
 }

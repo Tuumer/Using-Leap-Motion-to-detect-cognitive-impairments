@@ -6,6 +6,7 @@ using Leap.Unity;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class LineFollowingGame : MonoBehaviour
 {
@@ -15,12 +16,12 @@ public class LineFollowingGame : MonoBehaviour
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI countdownText;
     public TextMeshProUGUI coveredDistanceText;
+    
 
     private Hand hand;
 
     [Tooltip("The Canvas")]
     private Canvas hostCanvas;
-    private float score = 0f;
     private bool countdownStarted = false;
     private bool gameStarted = false;
     private bool gameEnded = false;
@@ -30,11 +31,15 @@ public class LineFollowingGame : MonoBehaviour
 
     [SerializeField]
     private List<Vector3> handTrail = new List<Vector3>();
+    private float startTime;
+    private float duration;
+    
 
     private void Start()
     {
         hostCanvas = FindObjectOfType<Canvas>();
         StartCoroutine(StartCountdown());
+        
     }
 
     IEnumerator StartCountdown()
@@ -56,6 +61,7 @@ public class LineFollowingGame : MonoBehaviour
 
         lineStartX = -675f;
         lineEndX = 675f;
+        startTime = Time.time;
     }
 
     private void Update()
@@ -102,7 +108,8 @@ public class LineFollowingGame : MonoBehaviour
         else if (canvasPos.x >= lineEndX)
         {
             gameEnded = true;
-            Debug.Log("Game Over");
+            duration = Time.time - startTime;
+            Debug.Log("Game Over."+"Time: "+duration);
             SaveHandTrailToJson();
         }
         else
@@ -137,14 +144,22 @@ public class LineFollowingGame : MonoBehaviour
         File.WriteAllText(filePath, json);
     }
 
+       public void setLineResult()
+    {
+        DataTransfer.score_line = scoreText.text;
+        DataTransfer.time_line = (float)Math.Round(duration*100)/100;
+    }
+
     [System.Serializable]
     private class HandTrailData
     {
         public List<Vector3> trail;
+        public float duration;
 
         public HandTrailData(List<Vector3> trail)
         {
             this.trail = trail;
+            this.duration=duration;
         }
     }
 }

@@ -550,6 +550,7 @@ GameObject:
   - component: {fileID: 334811545}
   - component: {fileID: 334811547}
   - component: {fileID: 334811546}
+  - component: {fileID: 334811549}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -643,6 +644,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &334811549
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 334811544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63893a32b76ad604dabe61b9473cb192, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &488854748
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -963,6 +976,7 @@ MonoBehaviour:
   scoreText: {fileID: 2088706863}
   countdownText: {fileID: 57192245}
   coveredDistanceText: {fileID: 757160211}
+  handTrail: []
 --- !u!114 &768196703
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1152,14 +1166,26 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: LeapMotionPointer, Assembly-CSharp
-        m_MethodName: haha
+      - m_Target: {fileID: 768196702}
+        m_TargetAssemblyTypeName: LineFollowingGame, Assembly-CSharp
+        m_MethodName: setLineResult
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 334811549}
+        m_TargetAssemblyTypeName: toGame, Assembly-CSharp
+        m_MethodName: ChangeScenes
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -1406,52 +1432,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 432918, guid: b9c7aaf0d314cb847a3b2a20e893f1b6, type: 3}
   m_PrefabInstance: {fileID: 2132344508}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1835764344
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1835764346}
-  - component: {fileID: 1835764345}
-  m_Layer: 0
-  m_Name: DataManagement
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1835764345
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1835764344}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 514588c184148854a93c656610b437c7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  full_name: {fileID: 0}
-  sex: {fileID: 0}
---- !u!4 &1835764346
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1835764344}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 151.72403, y: 76.28692, z: -9.357034}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2088706861
 GameObject:
   m_ObjectHideFlags: 0
@@ -1781,4 +1761,3 @@ SceneRoots:
   - {fileID: 1500204955}
   - {fileID: 2137583246}
   - {fileID: 871260422}
-  - {fileID: 1835764346}
