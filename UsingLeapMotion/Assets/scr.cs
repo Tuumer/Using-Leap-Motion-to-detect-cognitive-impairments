@@ -92,10 +92,12 @@ public class SpriteCreator : MonoBehaviour
         if (allBellsClicked)
         {
             Debug.Log("All bells clicked!");
+            Debug.Log(clickedBellTags.Count + " / " + count);
         }
         else
         {
             Debug.Log("Not all bells clicked.");
+            Debug.Log(clickedBellTags.Count + " / " + count);
         }
     }
 }

@@ -1232,6 +1232,7 @@ MonoBehaviour:
   - bell3
   - bell4
   - bell5
+  count: 0
   selectableLayerMask:
     serializedVersion: 2
     m_Bits: 8
