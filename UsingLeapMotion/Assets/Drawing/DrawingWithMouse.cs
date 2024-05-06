@@ -71,6 +71,9 @@ namespace _Project
                 DeActiveDrawing();
             }
 
+            // Обновляем позицию линии каждый кадр
+            UpdateLinePosition();
+
             // Additional logic for selecting next sphere based on tag order
             if (Input.GetKeyDown(KeyCode.Space))
             {
@@ -101,13 +104,11 @@ namespace _Project
             lastHoveredObject = null;
         }
 
-
         public Ray GetRayOnMousePosition()
         {
             var ray = _mainCamera.ScreenPointToRay(Input.mousePosition);
             return ray;
         }
-
 
         public void DrawLine()
         {
@@ -167,6 +168,27 @@ namespace _Project
             }
 
             return (float)correctCount / expectedTags.Length;
+        }
+
+        private void UpdateLinePosition()
+        {
+            Vector3 mousePosition = Input.mousePosition;
+            mousePosition.z = 88f; // Здесь мы используем заранее заданное расстояние от камеры до объекта
+            Vector3 worldMousePosition = _mainCamera.ScreenToWorldPoint(mousePosition);
+
+            if (connectedObjects.Count > 0)
+            {
+                drawPositions.Clear();
+                foreach (var targetObject in connectedObjects)
+                {
+                    drawPositions.Add(targetObject.transform.position);
+                }
+
+                drawPositions.Add(worldMousePosition);
+
+                lineRen.positionCount = drawPositions.Count;
+                lineRen.SetPositions(drawPositions.ToArray());
+            }
         }
     }
 }
