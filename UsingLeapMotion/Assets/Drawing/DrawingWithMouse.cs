@@ -65,7 +65,10 @@ namespace _Project
             if (Input.GetMouseButtonUp(0) && _isDrawing)
             {
                 float correctRatio = CountCorrectObjects();
-                Debug.Log("Ratio of correct objects selected: " + correctRatio);
+
+                string[] expectedTags = { "tmtstart", "2", "3", "4", "5", "6", "7", "endtmt" };
+
+                Debug.Log("Ratio of correct objects selected: " + correctRatio + "/" + expectedTags.Length);
                 _isDrawing = false;
                 connectedObjects.Clear();
                 DeActiveDrawing();
@@ -167,7 +170,7 @@ namespace _Project
                 }
             }
 
-            return (float)correctCount / expectedTags.Length;
+            return (float)correctCount;
         }
 
         private void UpdateLinePosition()
