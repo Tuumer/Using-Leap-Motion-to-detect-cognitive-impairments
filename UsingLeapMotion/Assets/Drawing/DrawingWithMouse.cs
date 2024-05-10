@@ -9,12 +9,11 @@ namespace _Project
         public List<Vector3> drawPositions = new List<Vector3>();
         public LineRenderer lineRen;
         public LayerMask targetLayerMask;
-        public Material correct;
-        public Material incorrect;
         private Camera _mainCamera;
         private bool _isDrawing;
         private int currentSphereIndex = 0;
         private GameObject lastHoveredObject;
+        string[] expectedTags = { "tmtstart", "2", "3", "4", "5", "6", "7", "endtmt" };
 
         private void Start()
         {
@@ -34,7 +33,10 @@ namespace _Project
                         _isDrawing = true;
                         connectedObjects.Add(raycastHit.transform.gameObject);
                         lineRen.gameObject.SetActive(true);
+
+                        
                     }
+                    
                 }
             }
 
@@ -57,16 +59,33 @@ namespace _Project
                         {
                             connectedObjects.Add(targetObject);
                         }
+                        currentSphereIndex++;
+
                     }
+                    Renderer sphereRenderer = raycastHit.transform.GetComponent<Renderer>();
+                    if (connectedObjects[currentSphereIndex].CompareTag(expectedTags[currentSphereIndex]))
+                    {
+                        sphereRenderer.material.color = Color.green;
+                    }
+                    else {
+                        sphereRenderer.material.color = Color.red;
+                    }
+
+                    // Получаем компонент Renderer сферы
+                    
+                    // Изменяем цвет материала сферы на зеленый
+                    
+
                 }
+
                 DrawLine();
+
             }
 
             if (Input.GetMouseButtonUp(0) && _isDrawing)
             {
                 float correctRatio = CountCorrectObjects();
 
-                string[] expectedTags = { "tmtstart", "2", "3", "4", "5", "6", "7", "endtmt" };
 
                 Debug.Log("Ratio of correct objects selected: " + correctRatio + "/" + expectedTags.Length);
                 _isDrawing = false;
@@ -78,34 +97,17 @@ namespace _Project
             UpdateLinePosition();
 
             // Additional logic for selecting next sphere based on tag order
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                currentSphereIndex++;
-                if (currentSphereIndex < connectedObjects.Count)
-                {
-                    connectedObjects[currentSphereIndex].SetActive(true);
-                }
-            }
+            // if (Input.GetKeyDown(KeyCode.Space))
+            // {
+            //     currentSphereIndex++;
+            //     if (currentSphereIndex < connectedObjects.Count)
+            //     {
+            //         connectedObjects[currentSphereIndex].SetActive(true);
+            //     }
+            // }
         }
 
-        private void OnMouseEnter()
-        {
-            if (lastHoveredObject != null)
-            {
-                lastHoveredObject.GetComponent<Renderer>().material = correct;
-            }
-            lastHoveredObject = gameObject;
-            GetComponent<Renderer>().material = incorrect;
-        }
 
-        private void OnMouseExit()
-        {
-            if (lastHoveredObject != null)
-            {
-                lastHoveredObject.GetComponent<Renderer>().material = correct;
-            }
-            lastHoveredObject = null;
-        }
 
         public Ray GetRayOnMousePosition()
         {
