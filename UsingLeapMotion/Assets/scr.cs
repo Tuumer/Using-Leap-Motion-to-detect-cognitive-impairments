@@ -1,8 +1,10 @@
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class SpriteCreator : MonoBehaviour
 {
+    [SerializeField] Text _timerText;
     public GameObject spritePrefab;
     public Texture2D circleTexture;
     public List<string> initialBellTags = new List<string>() { 
@@ -16,12 +18,14 @@ public class SpriteCreator : MonoBehaviour
     private HashSet<string> clickedBellTags = new HashSet<string>(); // Changed data structure to HashSet
 
     public int count = 0;
+    
 
     // Define a LayerMask variable to specify which layers are selectable
     public LayerMask selectableLayerMask;
 
     void Update()
     {
+        UpdateTimer();
         if (Input.GetMouseButtonDown(0)) // Left mouse button
         {
             RaycastHit hit;
@@ -57,6 +61,15 @@ public class SpriteCreator : MonoBehaviour
             Debug.Log(obj.name + " is not selectable because it is not on a selectable layer.");
         }
         return selectable;
+    }
+
+    void UpdateTimer()
+    {
+        float timeElapsed = Time.time;
+        if (_timerText != null)
+        {
+            _timerText.text = "Time Elapsed: " + Mathf.FloorToInt(timeElapsed).ToString();
+        }
     }
 
     void DrawCircle(Vector3 position, float radius)
