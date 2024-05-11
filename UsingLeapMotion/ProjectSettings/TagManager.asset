@@ -3,12 +3,47 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - bell1
+  - bell8
+  - bell34
+  - bell26
+  - bell12
+  - bell2
+  - bell18
+  - bell16
+  - bell30
+  - bell11
+  - bell20
+  - bell33
+  - bell25
+  - bell27
+  - bell31
+  - bell29
+  - bell35
+  - bell28
+  - bell17
+  - bell6
+  - bell5
+  - bell19
+  - bell9
+  - bell24
+  - bell23
+  - bell13
+  - bell15
+  - bell22
+  - bell21
+  - bell10
+  - bell3
+  - bell4
+  - bell14
+  - bell7
+  - bell32
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Selectable
   - Water
   - UI
   - 

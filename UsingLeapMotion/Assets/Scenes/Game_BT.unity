@@ -17258,7 +17258,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 1, g: 0.9087444, b: 0, a: 0}
+  m_BackGroundColor: {r: 1, g: 1, b: 1, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -17282,7 +17282,7 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
-  orthographic: 0
+  orthographic: 1
   orthographic size: 5
   m_Depth: -1
   m_CullingMask:
@@ -22868,7 +22868,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 3caa9d0195a1fd84fb4070b389e40e26, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -28179,9 +28179,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50b663b1a06809842872954de2fa3577, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _timerText: {fileID: 0}
-  spritePrefab: {fileID: 0}
-  circleTexture: {fileID: 0}
+  _timerText: {fileID: 613905}
+  spritePrefab: {fileID: 7368339154234852405, guid: 47d6322b4acb91b4dbd28e711f950b1f, type: 3}
+  circleTexture: {fileID: 2800000, guid: f56988fbd4cec434f93fd33078da5e65, type: 3}
   initialBellTags:
   - bell1
   - bell2
@@ -28221,7 +28221,7 @@ MonoBehaviour:
   count: 0
   selectableLayerMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
 --- !u!114 &2059539428
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28272,7 +28272,7 @@ Canvas:
   m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 1
-  m_Camera: {fileID: 0}
+  m_Camera: {fileID: 1228692304}
   m_PlaneDistance: 100
   m_PixelPerfect: 1
   m_ReceivesEvents: 1
