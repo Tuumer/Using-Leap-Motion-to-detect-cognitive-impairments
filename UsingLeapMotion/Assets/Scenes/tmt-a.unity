@@ -5357,6 +5357,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   _timerText: {fileID: 326640784}
+  i: 0
 --- !u!1 &1727848725
 GameObject:
   m_ObjectHideFlags: 0
