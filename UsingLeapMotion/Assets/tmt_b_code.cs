@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace _Project
 {
-    public class ConnectionManager : MonoBehaviour
+    public class tmt_b_code : MonoBehaviour
     {
         public List<GameObject> connectedObjects = new List<GameObject>();
         public List<Vector3> drawPositions = new List<Vector3>();
@@ -12,10 +13,8 @@ namespace _Project
         private Camera _mainCamera;
         private bool _isDrawing;
         private int currentSphereIndex = 0;
-        private GameObject lastHoveredObject;
-        string[] expectedTags = { "tmtstart", "2", "3", "4", "5", "6", "7", "endtmt" };
-        public GameObject finishPopup;
-
+        string[] expectedTags = { "tmtstart", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13","14", "15", "16", "17", "18", "19","20", "21", "22", "23", "24", "endtmt" };
+        [SerializeField] Text _timerText;
         private void Start()
         {
             _mainCamera = Camera.main;
@@ -24,6 +23,7 @@ namespace _Project
 
         private void Update()
         {
+            UpdateTimer();
             if (Input.GetMouseButtonDown(0))
             {
                 var ray = GetRayOnMousePosition();
@@ -35,9 +35,9 @@ namespace _Project
                         connectedObjects.Add(raycastHit.transform.gameObject);
                         lineRen.gameObject.SetActive(true);
 
-                        
+
                     }
-                    
+
                 }
             }
 
@@ -71,12 +71,6 @@ namespace _Project
                     else {
                         sphereRenderer.material.color = Color.red;
                     }
-
-                    // Получаем компонент Renderer сферы
-                    
-                    // Изменяем цвет материала сферы на зеленый
-                    
-
                 }
 
                 DrawLine();
@@ -86,7 +80,7 @@ namespace _Project
             if (Input.GetMouseButtonUp(0) && _isDrawing)
             {
                 float correctRatio = CountCorrectObjects();
-                ShowResultPopup();
+
 
                 Debug.Log("Ratio of correct objects selected: " + correctRatio + "/" + expectedTags.Length);
                 _isDrawing = false;
@@ -94,22 +88,7 @@ namespace _Project
                 DeActiveDrawing();
             }
 
-            // Обновляем позицию линии каждый кадр
             UpdateLinePosition();
-
-            // Additional logic for selecting next sphere based on tag order
-            // if (Input.GetKeyDown(KeyCode.Space))
-            // {
-            //     currentSphereIndex++;
-            //     if (currentSphereIndex < connectedObjects.Count)
-            //     {
-            //         connectedObjects[currentSphereIndex].SetActive(true);
-            //     }
-            // }
-        }
-        void ShowResultPopup()
-        {
-            finishPopup.SetActive(true);
         }
 
 
@@ -119,6 +98,14 @@ namespace _Project
             var ray = _mainCamera.ScreenPointToRay(Input.mousePosition);
             return ray;
         }
+        void UpdateTimer()
+    {
+        float timeElapsed = Time.time;
+        if (_timerText != null)
+        {
+            _timerText.text = "Time Elapsed: " + Mathf.FloorToInt(timeElapsed).ToString();
+        }
+    }
 
         public void DrawLine()
         {
@@ -133,12 +120,6 @@ namespace _Project
                 lineRen.positionCount = drawPositions.Count;
                 lineRen.SetPositions(drawPositions.ToArray());
             }
-        }
-
-        public Vector3 GetMouseWorldInputPosition()
-        {
-            var targetInputPos = _mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 88f));
-            return targetInputPos;
         }
 
         public void DeActiveDrawing()
@@ -161,7 +142,6 @@ namespace _Project
 
         private float CountCorrectObjects()
         {
-            string[] expectedTags = { "tmtstart", "2", "3", "4", "5", "6", "7", "endtmt" };
             int correctCount = 0;
 
             int minLength = Mathf.Min(connectedObjects.Count, expectedTags.Length);
