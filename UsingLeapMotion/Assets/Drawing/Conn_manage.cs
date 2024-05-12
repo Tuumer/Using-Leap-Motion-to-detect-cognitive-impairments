@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 namespace _Project
 {
-    public class ConnectionManager : MonoBehaviour
+    public class ConnnManager : MonoBehaviour
     {
         public List<GameObject> connectedObjects = new List<GameObject>();
         public List<Vector3> drawPositions = new List<Vector3>();
@@ -12,9 +12,8 @@ namespace _Project
         private Camera _mainCamera;
         private bool _isDrawing;
         private int currentSphereIndex = 0;
-        string[] expectedTags = { "tmtstart", "2", "3", "4", "5", "6", "7", "endtmt" };
-        public GameObject finishPopup;
-
+        string[] expectedTags = { "tmtstart", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13","14", "15", "16", "17", "18", "19","20", "21", "22", "23", "24", "endtmt" };
+        [SerializeField] Text _timerText;
         private void Start()
         {
             _mainCamera = Camera.main;
@@ -23,6 +22,7 @@ namespace _Project
 
         private void Update()
         {
+            UpdateTimer();
             if (Input.GetMouseButtonDown(0))
             {
                 var ray = GetRayOnMousePosition();
@@ -70,8 +70,6 @@ namespace _Project
                     else {
                         sphereRenderer.material.color = Color.red;
                     }
-                    
-
                 }
 
                 DrawLine();
@@ -81,7 +79,7 @@ namespace _Project
             if (Input.GetMouseButtonUp(0) && _isDrawing)
             {
                 float correctRatio = CountCorrectObjects();
-                ShowResultPopup();
+
 
                 Debug.Log("Ratio of correct objects selected: " + correctRatio + "/" + expectedTags.Length);
                 _isDrawing = false;
@@ -89,22 +87,22 @@ namespace _Project
                 DeActiveDrawing();
             }
 
-
             UpdateLinePosition();
-
         }
 
-
+    void UpdateTimer()
+    {
+        float timeElapsed = Time.time;
+        if (_timerText != null)
+        {
+            _timerText.text = "Time Elapsed: " + Mathf.FloorToInt(timeElapsed).ToString();
+        }
+    }
 
         public Ray GetRayOnMousePosition()
         {
             var ray = _mainCamera.ScreenPointToRay(Input.mousePosition);
             return ray;
-        }
-
-        void ShowResultPopup()
-        {
-            finishPopup.SetActive(true);
         }
 
         public void DrawLine()
@@ -121,7 +119,6 @@ namespace _Project
                 lineRen.SetPositions(drawPositions.ToArray());
             }
         }
-
 
         public void DeActiveDrawing()
         {
@@ -143,7 +140,6 @@ namespace _Project
 
         private float CountCorrectObjects()
         {
-    
             int correctCount = 0;
 
             int minLength = Mathf.Min(connectedObjects.Count, expectedTags.Length);
