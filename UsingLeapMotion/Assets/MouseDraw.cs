@@ -34,6 +34,7 @@ public class MouseDraw : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     private float m_scaleFactor = 10;
     private RawImage m_image;
     private Vector2? m_lastPos;
+    [SerializeField] Text _timerText;
 
     public int eraserRadius = 20; // Larger eraser radius
 
@@ -49,6 +50,7 @@ public class MouseDraw : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     void Update()
     {
+        UpdateTimer();
         var pos = Input.mousePosition;
 
         if (IsInFocus)
@@ -65,7 +67,14 @@ public class MouseDraw : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         if (Input.GetMouseButtonUp(0))
             m_lastPos = null;
     }
-
+void UpdateTimer()
+    {
+        float timeElapsed = Time.time;
+        if (_timerText != null)
+        {
+            _timerText.text = "Time Elapsed: " + Mathf.FloorToInt(timeElapsed).ToString();
+        }
+    }
     private void Init()
     {
         m_scaleFactor = HostCanvas.scaleFactor * 2;
