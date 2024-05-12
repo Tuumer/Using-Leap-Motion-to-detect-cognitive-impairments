@@ -18,10 +18,13 @@ public class ColourPaletteView : MonoBehaviour
         eraserToggle.onValueChanged.AddListener(OnEraserToggled);
     }
 
+
     private void OnDisable()
     {
         penToggle.onValueChanged.RemoveListener(OnPenToggled);
         eraserToggle.onValueChanged.RemoveListener(OnEraserToggled);
+
+
     }
 
     private void OnPenToggled(bool value)
@@ -31,6 +34,7 @@ public class ColourPaletteView : MonoBehaviour
             // Включить режим рисования и отключить режим стирания
             MouseDrawComponent.IsEraser = false;
             Debug.Log("false");
+            eraserToggle.isOn = false;
         }
     }
 
@@ -41,6 +45,7 @@ public class ColourPaletteView : MonoBehaviour
             // Включить режим стирания и отключить режим рисования
             MouseDrawComponent.IsEraser = true;
             Debug.Log("true");
+            penToggle.isOn = false;
         }
     }
 }
