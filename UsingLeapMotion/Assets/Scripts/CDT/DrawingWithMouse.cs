@@ -169,10 +169,6 @@ namespace _Project
                 {
                     correctCount++;
                 }
-                else
-                {
-                    break; // Прерываем цикл, если порядок нарушен
-                }
             }
 
             return (float)correctCount / expectedTags.Length;
