@@ -123,6 +123,71 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &126478338
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 351323491}
+    m_Modifications:
+    - target: {fileID: 2620720364649194717, guid: df583a3601025da4593a5ef9a8402395, type: 3}
+      propertyPath: m_Name
+      value: Line
+      objectReference: {fileID: 0}
+    - target: {fileID: 6561843414552565796, guid: df583a3601025da4593a5ef9a8402395, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6561843414552565796, guid: df583a3601025da4593a5ef9a8402395, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6561843414552565796, guid: df583a3601025da4593a5ef9a8402395, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6561843414552565796, guid: df583a3601025da4593a5ef9a8402395, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6561843414552565796, guid: df583a3601025da4593a5ef9a8402395, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6561843414552565796, guid: df583a3601025da4593a5ef9a8402395, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6561843414552565796, guid: df583a3601025da4593a5ef9a8402395, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6561843414552565796, guid: df583a3601025da4593a5ef9a8402395, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6561843414552565796, guid: df583a3601025da4593a5ef9a8402395, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6561843414552565796, guid: df583a3601025da4593a5ef9a8402395, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6561843414552565796, guid: df583a3601025da4593a5ef9a8402395, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6561843414552565796, guid: df583a3601025da4593a5ef9a8402395, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: df583a3601025da4593a5ef9a8402395, type: 3}
 --- !u!1 &149545033
 GameObject:
   m_ObjectHideFlags: 0
@@ -208,7 +273,7 @@ GameObject:
   m_Component:
   - component: {fileID: 231230168}
   - component: {fileID: 231230169}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Group 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -389,11 +454,11 @@ RectTransform:
   - {fileID: 2098157940}
   - {fileID: 902008988}
   - {fileID: 394983610}
-  - {fileID: 985879769}
   - {fileID: 828986933}
   - {fileID: 1832279437}
   - {fileID: 943417210}
   - {fileID: 795196496}
+  - {fileID: 1951041049}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -413,7 +478,7 @@ GameObject:
   - component: {fileID: 394983613}
   - component: {fileID: 394983612}
   - component: {fileID: 394983611}
-  m_Layer: 7
+  m_Layer: 3
   m_Name: Sphere-8
   m_TagString: endtmt
   m_Icon: {fileID: 0}
@@ -698,7 +763,7 @@ GameObject:
   m_Component:
   - component: {fileID: 445341356}
   - component: {fileID: 445341357}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Group 2 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -857,7 +922,7 @@ GameObject:
   m_Component:
   - component: {fileID: 621334146}
   - component: {fileID: 621334147}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Group 2 (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1037,7 +1102,7 @@ GameObject:
   - component: {fileID: 793069190}
   - component: {fileID: 793069189}
   - component: {fileID: 793069188}
-  m_Layer: 7
+  m_Layer: 3
   m_Name: Sphere-5
   m_TagString: 5
   m_Icon: {fileID: 0}
@@ -1198,10 +1263,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   connectedObjects: []
   drawPositions: []
-  lineRen: {fileID: 985879768}
+  lineRen: {fileID: 1951041050}
   targetLayerMask:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 8
+  finishPopup: {fileID: 795196495}
 --- !u!4 &828986933
 Transform:
   m_ObjectHideFlags: 0
@@ -1229,7 +1295,7 @@ GameObject:
   - component: {fileID: 888038394}
   - component: {fileID: 888038393}
   - component: {fileID: 888038392}
-  m_Layer: 7
+  m_Layer: 3
   m_Name: Sphere-1
   m_TagString: tmtstart
   m_Icon: {fileID: 0}
@@ -1335,7 +1401,7 @@ GameObject:
   - component: {fileID: 902008991}
   - component: {fileID: 902008990}
   - component: {fileID: 902008989}
-  m_Layer: 7
+  m_Layer: 3
   m_Name: Sphere-7
   m_TagString: 7
   m_Icon: {fileID: 0}
@@ -1596,159 +1662,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &985879766
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 985879769}
-  - component: {fileID: 985879768}
-  - component: {fileID: 985879767}
-  m_Layer: 0
-  m_Name: Line
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &985879767
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 985879766}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f5641c258399a0d4581f033f9504c4b5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  connectedObjects: []
-  drawPositions: []
-  lineRen: {fileID: 985879768}
-  targetLayerMask:
-    serializedVersion: 2
-    m_Bits: 128
---- !u!120 &985879768
-LineRenderer:
-  serializedVersion: 2
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 985879766}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 0
-  m_LightProbeUsage: 0
-  m_ReflectionProbeUsage: 0
-  m_RayTracingMode: 0
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: a57e2588cc9403d4b83353c836b9ae9b, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Positions: []
-  m_Parameters:
-    serializedVersion: 3
-    widthMultiplier: 5.0324574
-    widthCurve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    colorGradient:
-      serializedVersion: 2
-      key0: {r: 1, g: 1, b: 1, a: 1}
-      key1: {r: 1, g: 1, b: 1, a: 1}
-      key2: {r: 1, g: 1, b: 1, a: 0}
-      key3: {r: 0, g: 0, b: 0, a: 0}
-      key4: {r: 0, g: 0, b: 0, a: 0}
-      key5: {r: 0, g: 0, b: 0, a: 0}
-      key6: {r: 0, g: 0, b: 0, a: 0}
-      key7: {r: 0, g: 0, b: 0, a: 0}
-      ctime0: 65535
-      ctime1: 65535
-      ctime2: 65535
-      ctime3: 0
-      ctime4: 0
-      ctime5: 0
-      ctime6: 0
-      ctime7: 0
-      atime0: 0
-      atime1: 65535
-      atime2: 0
-      atime3: 0
-      atime4: 0
-      atime5: 0
-      atime6: 0
-      atime7: 0
-      m_Mode: 0
-      m_ColorSpace: 0
-      m_NumColorKeys: 2
-      m_NumAlphaKeys: 2
-    numCornerVertices: 5
-    numCapVertices: 5
-    alignment: 0
-    textureMode: 0
-    textureScale: {x: 1, y: 1}
-    shadowBias: 0.5
-    generateLightingData: 1
-  m_MaskInteraction: 0
-  m_UseWorldSpace: 0
-  m_Loop: 0
-  m_ApplyActiveColorSpace: 1
---- !u!4 &985879769
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 985879766}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 10, y: 10, z: 0}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 351323491}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1083002420
 GameObject:
   m_ObjectHideFlags: 0
@@ -1759,7 +1672,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1083002421}
   - component: {fileID: 1083002422}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Group 1 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1845,7 +1758,7 @@ GameObject:
   - component: {fileID: 1105671107}
   - component: {fileID: 1105671106}
   - component: {fileID: 1105671105}
-  m_Layer: 7
+  m_Layer: 3
   m_Name: Sphere-2
   m_TagString: 2
   m_Icon: {fileID: 0}
@@ -1908,7 +1821,8 @@ MeshRenderer:
   m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
-  m_Materials: []
+  m_Materials:
+  - {fileID: 2100000, guid: 20aa9f5ab3f8121448b61d3a5850794f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2138,7 +2052,7 @@ GameObject:
   - component: {fileID: 1176776397}
   - component: {fileID: 1176776396}
   - component: {fileID: 1176776395}
-  m_Layer: 7
+  m_Layer: 3
   m_Name: Sphere-3
   m_TagString: 3
   m_Icon: {fileID: 0}
@@ -2242,7 +2156,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1471803438}
   - component: {fileID: 1471803439}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Group 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2326,7 +2240,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1583112238}
   - component: {fileID: 1583112239}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Group 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2485,7 +2399,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1706472078}
   - component: {fileID: 1706472079}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Group 2 (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2569,7 +2483,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1792651264}
   - component: {fileID: 1792651265}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Group 5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2730,7 +2644,7 @@ GameObject:
   - component: {fileID: 1875520743}
   - component: {fileID: 1875520742}
   - component: {fileID: 1875520741}
-  m_Layer: 7
+  m_Layer: 3
   m_Name: Sphere-4
   m_TagString: 4
   m_Icon: {fileID: 0}
@@ -2824,6 +2738,16 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1875520739}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &1951041049 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6561843414552565796, guid: df583a3601025da4593a5ef9a8402395, type: 3}
+  m_PrefabInstance: {fileID: 126478338}
+  m_PrefabAsset: {fileID: 0}
+--- !u!120 &1951041050 stripped
+LineRenderer:
+  m_CorrespondingSourceObject: {fileID: 1545199811289732021, guid: df583a3601025da4593a5ef9a8402395, type: 3}
+  m_PrefabInstance: {fileID: 126478338}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2098157939
 GameObject:
   m_ObjectHideFlags: 0
@@ -2836,7 +2760,7 @@ GameObject:
   - component: {fileID: 2098157943}
   - component: {fileID: 2098157942}
   - component: {fileID: 2098157941}
-  m_Layer: 7
+  m_Layer: 3
   m_Name: Sphere-6
   m_TagString: 6
   m_Icon: {fileID: 0}
