@@ -101,7 +101,7 @@ public class MouseDraw : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
         foreach (var position in positions)
         {
-            var pixels = GetNeighbouringPixels(new Vector2(mainTex.width, mainTex.height), position, 1);
+            var pixels = GetNeighbouringPixels(new Vector2(mainTex.width, mainTex.height), position, 2);
 
             if (pixels.Count > 0)
                 foreach (var p in pixels)
