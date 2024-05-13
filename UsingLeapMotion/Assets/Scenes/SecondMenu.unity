@@ -258,11 +258,11 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 768413251}
+  m_Father: {fileID: 366968365}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 597, y: -370}
+  m_AnchoredPosition: {x: -1, y: -4}
   m_SizeDelta: {x: 400, y: 136}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &15951998
@@ -1493,7 +1493,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 15951997}
   m_Father: {fileID: 768413251}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
@@ -2432,7 +2433,6 @@ RectTransform:
   - {fileID: 429391501}
   - {fileID: 1619739474}
   - {fileID: 1351116032}
-  - {fileID: 934192758}
   - {fileID: 929564490}
   m_Father: {fileID: 1746733541}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2471,11 +2471,11 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 802865274}
+  m_Father: {fileID: 1544183747}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 597, y: -370}
+  m_AnchoredPosition: {x: -1, y: -4}
   m_SizeDelta: {x: 400, y: 136}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &556067586
@@ -3345,7 +3345,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 905033642}
   m_Father: {fileID: 1783780935}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
@@ -3663,7 +3664,6 @@ RectTransform:
   - {fileID: 1597506575}
   - {fileID: 1354639061}
   - {fileID: 366968365}
-  - {fileID: 15951997}
   - {fileID: 865768782}
   m_Father: {fileID: 1746733541}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3973,7 +3973,6 @@ RectTransform:
   - {fileID: 1079593249}
   - {fileID: 342127803}
   - {fileID: 1544183747}
-  - {fileID: 556067585}
   - {fileID: 1133329354}
   m_Father: {fileID: 1746733541}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4901,11 +4900,11 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1783780935}
+  m_Father: {fileID: 725234515}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 597, y: -370}
+  m_AnchoredPosition: {x: -1, y: -4}
   m_SizeDelta: {x: 400, y: 136}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &905033643
@@ -5388,11 +5387,11 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 547791419}
+  m_Father: {fileID: 1351116032}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 597, y: -370}
+  m_AnchoredPosition: {x: -1, y: -4}
   m_SizeDelta: {x: 400, y: 136}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &934192759
@@ -7314,7 +7313,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 934192758}
   m_Father: {fileID: 547791419}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
@@ -8127,7 +8127,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 556067585}
   m_Father: {fileID: 802865274}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
@@ -9368,7 +9369,6 @@ RectTransform:
   - {fileID: 830524955}
   - {fileID: 545956096}
   - {fileID: 725234515}
-  - {fileID: 905033642}
   - {fileID: 564166160}
   m_Father: {fileID: 1746733541}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

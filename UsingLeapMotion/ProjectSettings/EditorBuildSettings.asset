@@ -12,18 +12,21 @@ EditorBuildSettings:
     path: Assets/Scenes/SecondMenu.unity
     guid: 5b2bf77977939fd42b65199be3b5fae8
   - enabled: 1
-    path: Assets/Scenes/Game_LT.unity
+    path: Assets/Scenes/1Game_LT.unity
     guid: 8e8784f66f3d7974eb5c025a9207a543
-  - enabled: 0
-    path: Assets/Scenes/dadad.unity
-    guid: 99bab4ce190ebbd42a4eb0cc3cf095b1
   - enabled: 1
-    path: Assets/Scenes/Game_TMT.unity
-    guid: 697bf3065cb20d14f8797ff0154c907e
+    path: Assets/Scenes/2Game_TMT_Sample.unity
+    guid: 912eafd8b651f7846a07fdc874c59854
   - enabled: 1
-    path: Assets/Scenes/Game_BT.unity
+    path: Assets/Scenes/3Game_BT.unity
     guid: 311f0f38ac26ba3418ff57fa404fa383
   - enabled: 1
-    path: Assets/Scenes/Game_CDT.unity
+    path: Assets/Scenes/4Game_CDT.unity
     guid: 354d85166e0793945bd3743013642fb8
+  - enabled: 1
+    path: Assets/Scenes/tmt-a.unity
+    guid: aa84e251e23363648b0a9fc8375d73c0
+  - enabled: 1
+    path: Assets/Scenes/tmt-b.unity
+    guid: 17205a272bcbc3745bc884ba5ea9e2c7
   m_configObjects: {}
