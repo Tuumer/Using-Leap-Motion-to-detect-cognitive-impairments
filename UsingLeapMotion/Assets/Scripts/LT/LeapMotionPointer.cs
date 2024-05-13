@@ -59,7 +59,7 @@ public class LineFollowingGame : MonoBehaviour
         countdownText.text = "Go!";
         countdownStarted = true;
         gameStarted = true;
-        accuracy = 100f;
+        accuracy = 100;
 
         lineStartX = -675f;
         lineEndX = 675f;
@@ -98,8 +98,8 @@ public class LineFollowingGame : MonoBehaviour
             );
 
             float distanceFromLine = Mathf.Abs(canvasPos.y - preGeneratedLine.position.y);
-            float maxDistanceFromLine = 30f;
-            accuracy -= Mathf.Clamp01(distanceFromLine / maxDistanceFromLine) * 100f;
+            float maxDistanceFromLine = 20f;
+            accuracy = Mathf.Clamp01(1f - (distanceFromLine / maxDistanceFromLine)) * 100f;
 
             coveredDistanceText.text = $"Covered Distance: {coveredDistance}";
             scoreText.text = $"Accuracy: {accuracy}%";
