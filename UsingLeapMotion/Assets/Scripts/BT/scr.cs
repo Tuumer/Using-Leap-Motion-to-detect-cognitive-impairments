@@ -82,10 +82,7 @@ public class SpriteCreator : MonoBehaviour
     public void CompareTags()
     {
         Debug.Log("Clicked Bell Tags:");
-        foreach (string tag in clickedBellTags)
-        {
-            Debug.Log(tag);
-        }
+        
 
         // Compare clicked bell tags with initial list
         bool allBellsClicked = true;
@@ -98,15 +95,7 @@ public class SpriteCreator : MonoBehaviour
             }
         }
 
-        if (allBellsClicked)
-        {
-            Debug.Log("All bells clicked!");
-            Debug.Log(clickedBellTags.Count + " / " + (count-1));
-        }
-        else
-        {
-            Debug.Log("Not all bells clicked.");
-            Debug.Log(clickedBellTags.Count + " / " + (count-1));
-        }
+          Debug.Log(clickedBellTags.Count + " / " + (count-1));
+        
     }
 }
