@@ -31,10 +31,11 @@ namespace _Project
                     {
                         _isDrawing = true;
                         connectedObjects.Add(raycastHit.transform.gameObject);
+                        connectedObjects[0].GetComponent<Renderer>().material.color = Color.green;
                         lineRen.gameObject.SetActive(true);
-                        
+
                     }
-                    
+
                 }
             }
             if (Input.GetMouseButton(0) && _isDrawing)
@@ -46,26 +47,35 @@ namespace _Project
                     if (!connectedObjects.Contains(targetObject))
                     {
                         if (targetObject.CompareTag("tmtstart"))
-                        {
+                        {   
+                            targetObject.GetComponent<Renderer>().material.color = Color.green;
+                            
                             if (connectedObjects.Count == 0 || !connectedObjects[connectedObjects.Count - 1].CompareTag("endtmt"))
                             {
+                                
                                 connectedObjects.Add(targetObject);
+                                
                             }
-                        }
+                        
+                        } 
                         else
                         {
                             connectedObjects.Add(targetObject);
                         }
                         currentSphereIndex++;
+
+                        Renderer sphereRenderer = raycastHit.transform.GetComponent<Renderer>();
+                        if (connectedObjects[currentSphereIndex].CompareTag(expectedTags[currentSphereIndex]))
+                        {
+                            sphereRenderer.material.color = Color.green;
+                        }
+                        else
+                        {
+                            sphereRenderer.material.color = Color.red;
+                        }
+
                     }
-                    Renderer sphereRenderer = raycastHit.transform.GetComponent<Renderer>();
-                    if (connectedObjects[currentSphereIndex].CompareTag(expectedTags[currentSphereIndex]))
-                    {
-                        sphereRenderer.material.color = Color.green;
-                    }
-                    else {
-                        sphereRenderer.material.color = Color.red;
-                    }
+
 
 
 
@@ -146,10 +156,6 @@ namespace _Project
                 {
                     correctCount++;
                 }
-                else
-                {
-                    break; // Прерываем цикл, если порядок нарушен
-                }
             }
             return (float)correctCount;
         }
@@ -171,4 +177,4 @@ namespace _Project
             }
         }
     }
-}   
+}

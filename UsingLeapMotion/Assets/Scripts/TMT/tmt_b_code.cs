@@ -13,7 +13,7 @@ namespace _Project
         private Camera _mainCamera;
         private bool _isDrawing;
         private int currentSphereIndex = 0;
-        string[] expectedTags = { "tmtstart", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13","14", "15", "16", "17", "18", "19","20", "21", "22", "23", "24", "endtmt" };
+        string[] expectedTags = { "tmtstart", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "endtmt" };
         [SerializeField] Text _timerText;
 
         private float startTime;
@@ -37,6 +37,8 @@ namespace _Project
                     {
                         _isDrawing = true;
                         connectedObjects.Add(raycastHit.transform.gameObject);
+
+                        connectedObjects[0].GetComponent<Renderer>().material.color = Color.green;
                         lineRen.gameObject.SetActive(true);
 
 
@@ -66,15 +68,17 @@ namespace _Project
                         }
                         currentSphereIndex++;
 
+                        Renderer sphereRenderer = raycastHit.transform.GetComponent<Renderer>();
+                        if (connectedObjects[currentSphereIndex].CompareTag(expectedTags[currentSphereIndex]))
+                        {
+                            sphereRenderer.material.color = Color.green;
+                        }
+                        else
+                        {
+                            sphereRenderer.material.color = Color.red;
+                        }
                     }
-                    Renderer sphereRenderer = raycastHit.transform.GetComponent<Renderer>();
-                    if (connectedObjects[currentSphereIndex].CompareTag(expectedTags[currentSphereIndex]))
-                    {
-                        sphereRenderer.material.color = Color.green;
-                    }
-                    else {
-                        sphereRenderer.material.color = Color.red;
-                    }
+
                 }
 
                 DrawLine();
@@ -84,7 +88,7 @@ namespace _Project
             if (Input.GetMouseButtonUp(0) && _isDrawing)
             {
                 float correctRatio = CountCorrectObjects();
-                
+
                 duration = Time.time - startTime;
 
                 DataTransfer.score_tmt_b = correctRatio;
@@ -108,13 +112,13 @@ namespace _Project
             return ray;
         }
         void UpdateTimer()
-    {
-        float timeElapsed = Time.time;
-        if (_timerText != null)
         {
-            _timerText.text = "Time Elapsed: " + Mathf.FloorToInt(timeElapsed).ToString();
+            float timeElapsed = Time.time;
+            if (_timerText != null)
+            {
+                _timerText.text = "Time Elapsed: " + Mathf.FloorToInt(timeElapsed).ToString();
+            }
         }
-    }
 
         public void DrawLine()
         {

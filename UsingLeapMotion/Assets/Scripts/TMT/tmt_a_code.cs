@@ -38,6 +38,7 @@ namespace _Project
                     {
                         _isDrawing = true;
                         connectedObjects.Add(raycastHit.transform.gameObject);
+                        connectedObjects[0].GetComponent<Renderer>().material.color = Color.green;
                         lineRen.gameObject.SetActive(true);
 
 
@@ -67,15 +68,18 @@ namespace _Project
                         }
                         currentSphereIndex++;
 
+                        Renderer sphereRenderer = raycastHit.transform.GetComponent<Renderer>();
+                        if (connectedObjects[currentSphereIndex].CompareTag(expectedTags[currentSphereIndex]))
+                        {
+                            sphereRenderer.material.color = Color.green;
+                        }
+                        else
+                        {
+                            sphereRenderer.material.color = Color.red;
+                        }
+
                     }
-                    Renderer sphereRenderer = raycastHit.transform.GetComponent<Renderer>();
-                    if (connectedObjects[currentSphereIndex].CompareTag(expectedTags[currentSphereIndex]))
-                    {
-                        sphereRenderer.material.color = Color.green;
-                    }
-                    else {
-                        sphereRenderer.material.color = Color.red;
-                    }
+                    
                 }
 
                 DrawLine();
