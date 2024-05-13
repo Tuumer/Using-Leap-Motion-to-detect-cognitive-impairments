@@ -33,6 +33,7 @@ public class LineFollowingGame : MonoBehaviour
     private List<Vector3> handTrail = new List<Vector3>();
     private float startTime;
     private float duration;
+    private float accuracy;
     
 
     private void Start()
@@ -58,6 +59,7 @@ public class LineFollowingGame : MonoBehaviour
         countdownText.text = "Go!";
         countdownStarted = true;
         gameStarted = true;
+        accuracy = 100f;
 
         lineStartX = -675f;
         lineEndX = 675f;
@@ -83,12 +85,11 @@ public class LineFollowingGame : MonoBehaviour
             out canvasPos
         );
 
-        // Debug.Log("On the world" + handPosition);
-        // Debug.Log("On the canvas" + canvasPos.x);
+        Debug.Log("On the world" + handPosition);
+        Debug.Log("On the canvas" + canvasPos.x +"||||" + canvasPos.y);
 
         if (canvasPos.x >= lineStartX && canvasPos.x <= lineEndX)
         {
-            float accuracy = 100f;
 
             float coveredDistance = Mathf.Clamp(
                 canvasPos.x - lineStartX,
@@ -100,8 +101,8 @@ public class LineFollowingGame : MonoBehaviour
             float maxDistanceFromLine = 30f;
             accuracy -= Mathf.Clamp01(distanceFromLine / maxDistanceFromLine) * 100f;
 
-            coveredDistanceText.text = $"Covered Distance: {coveredDistance:F2}";
-            scoreText.text = $"Accuracy: {accuracy:F2}%";
+            coveredDistanceText.text = $"Covered Distance: {coveredDistance}";
+            scoreText.text = $"Accuracy: {accuracy}%";
 
             handTrail.Add(handPosition);
         }
@@ -109,7 +110,13 @@ public class LineFollowingGame : MonoBehaviour
         {
             gameEnded = true;
             duration = Time.time - startTime;
-            Debug.Log("Game Over."+"Time: "+duration);
+
+            DataTransfer.score_line = accuracy;
+            DataTransfer.time_line = (float)Math.Round(duration*100)/100;
+
+
+            Debug.Log("Game Over."+"Accuracy: "+ accuracy + "Time: "+duration);
+
             SaveHandTrailToJson();
         }
         else
@@ -142,12 +149,6 @@ public class LineFollowingGame : MonoBehaviour
 
         string filePath = Application.dataPath + "/Resources/HandTrail.json";
         File.WriteAllText(filePath, json);
-    }
-
-       public void setLineResult()
-    {
-        DataTransfer.score_line = scoreText.text;
-        DataTransfer.time_line = (float)Math.Round(duration*100)/100;
     }
 
     [System.Serializable]

@@ -15,10 +15,15 @@ namespace _Project
         private int currentSphereIndex = 0;
         string[] expectedTags = { "tmtstart", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13","14", "15", "16", "17", "18", "19","20", "21", "22", "23", "24", "endtmt" };
         [SerializeField] Text _timerText;
+        private float startTime;
+        private float duration;
+
+
         private void Start()
         {
             _mainCamera = Camera.main;
             HideAllSpheresExceptFirst();
+            startTime = Time.time;
         }
 
         private void Update()
@@ -80,6 +85,10 @@ namespace _Project
             if (Input.GetMouseButtonUp(0) && _isDrawing)
             {
                 float correctRatio = CountCorrectObjects();
+                duration = Time.time - startTime;
+
+                DataTransfer.score_tmt_a = correctRatio;
+                DataTransfer.time_tmt_a = duration;
 
 
                 Debug.Log("Ratio of correct objects selected: " + correctRatio + "/" + expectedTags.Length);

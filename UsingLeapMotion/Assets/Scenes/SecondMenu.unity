@@ -2037,10 +2037,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b93834b55e0086a47a6b6380e4de353a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  text_score_line: {fileID: 1180417535}
+  text_score_line: {fileID: 1282355873}
   text_time_line: {fileID: 774116114}
-  text_score_tmt: {fileID: 0}
+  text_score_tmt: {fileID: 1768248856}
   text_time_tmt: {fileID: 1838616932}
+  text_score_bell: {fileID: 1484956388}
+  text_time_bell: {fileID: 1997823467}
+  text_score_cdt: {fileID: 810810712}
+  text_time_cdt: {fileID: 1265808436}
+  text_acc_line: {fileID: 1180417535}
+  text_acc_tmt: {fileID: 570267073}
+  text_acc_bell: {fileID: 1856166006}
+  text_acc_cdt: {fileID: 1306491173}
 --- !u!4 &518893031
 Transform:
   m_ObjectHideFlags: 0
@@ -3464,7 +3472,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &752729541
 RectTransform:
   m_ObjectHideFlags: 0
