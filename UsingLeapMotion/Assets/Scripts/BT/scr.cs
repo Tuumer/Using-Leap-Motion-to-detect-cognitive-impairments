@@ -18,10 +18,17 @@ public class SpriteCreator : MonoBehaviour
     private HashSet<string> clickedBellTags = new HashSet<string>(); // Changed data structure to HashSet
 
     public int count = 0;
+
+    private float startTime;
+    private float duration;
     
 
     // Define a LayerMask variable to specify which layers are selectable
     public LayerMask selectableLayerMask;
+
+    void Start(){
+        startTime = Time.time;
+    }
 
     void Update()
     {
@@ -83,6 +90,14 @@ public class SpriteCreator : MonoBehaviour
     {
 
         bool allBellsClicked = true;
+
+        duration = Time.time - startTime;
+
+        DataTransfer.score_bell = clickedBellTags.Count;
+        DataTransfer.time_bell = duration;
+        DataTransfer.state_bell = true;
+
+
         foreach (string bellTag in initialBellTags)
         {
             if (!clickedBellTags.Contains(bellTag))

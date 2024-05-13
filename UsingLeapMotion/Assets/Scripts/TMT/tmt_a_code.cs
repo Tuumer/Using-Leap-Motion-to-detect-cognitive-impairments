@@ -93,6 +93,7 @@ namespace _Project
 
                 DataTransfer.score_tmt_a = correctRatio;
                 DataTransfer.time_tmt_a = duration;
+                DataTransfer.state_tmt_a = true;
 
 
                 Debug.Log("Ratio of correct objects selected: " + correctRatio + "/" + expectedTags.Length);
