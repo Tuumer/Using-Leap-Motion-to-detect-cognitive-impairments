@@ -45,11 +45,6 @@ public class SpriteCreator : MonoBehaviour
             count++;
         }
 
-        // Compare the clicked bell tags with the initial list
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            CompareTags();
-        }
     }
 
     bool IsSelectable(GameObject obj)
@@ -84,7 +79,7 @@ public class SpriteCreator : MonoBehaviour
         circle.transform.localScale = new Vector3(diameter, diameter, 1f);
     }
 
-    void CompareTags()
+    public void CompareTags()
     {
         Debug.Log("Clicked Bell Tags:");
         foreach (string tag in clickedBellTags)
@@ -106,12 +101,12 @@ public class SpriteCreator : MonoBehaviour
         if (allBellsClicked)
         {
             Debug.Log("All bells clicked!");
-            Debug.Log(clickedBellTags.Count + " / " + count);
+            Debug.Log(clickedBellTags.Count + " / " + (count-1));
         }
         else
         {
             Debug.Log("Not all bells clicked.");
-            Debug.Log(clickedBellTags.Count + " / " + count);
+            Debug.Log(clickedBellTags.Count + " / " + (count-1));
         }
     }
 }
