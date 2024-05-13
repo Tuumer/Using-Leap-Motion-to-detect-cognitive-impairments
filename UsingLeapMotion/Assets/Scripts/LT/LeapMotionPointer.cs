@@ -39,6 +39,7 @@ public class LineFollowingGame : MonoBehaviour
     private void Start()
     {
         hostCanvas = FindObjectOfType<Canvas>();
+        Debug.Log(preGeneratedLine.position.y);
         StartCoroutine(StartCountdown());
         
     }
@@ -97,8 +98,8 @@ public class LineFollowingGame : MonoBehaviour
                 lineEndX - lineStartX
             );
 
-            float distanceFromLine = Mathf.Abs(canvasPos.y - preGeneratedLine.position.y);
-            float maxDistanceFromLine = 20f;
+            float distanceFromLine = Mathf.Abs(canvasPos.y - (-105));
+            float maxDistanceFromLine = 50f;
             accuracy = Mathf.Clamp01(1f - (distanceFromLine / maxDistanceFromLine)) * 100f;
 
             coveredDistanceText.text = $"Covered Distance: {coveredDistance}";
@@ -111,7 +112,7 @@ public class LineFollowingGame : MonoBehaviour
             gameEnded = true;
             duration = Time.time - startTime;
 
-            DataTransfer.score_line = accuracy;
+            DataTransfer.score_line = (float)Math.Round(accuracy*100)/100;
             DataTransfer.time_line = (float)Math.Round(duration*100)/100;
 
 

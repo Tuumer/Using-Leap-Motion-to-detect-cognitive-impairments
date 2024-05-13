@@ -44,7 +44,7 @@ public class DataTransfer : MonoBehaviour
     {
         text_score_line.text=$"{score_line}";
         text_time_line.text=$"{time_line}";
-        text_acc_line.text="90%";
+        text_acc_line.text=$"{score_line}%";
 
         text_score_tmt.text= $"{score_tmt_a+score_tmt_b}";
         text_time_tmt.text=$"{(time_tmt_a+time_tmt_b)}";
