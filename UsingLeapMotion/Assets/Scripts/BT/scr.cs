@@ -91,8 +91,8 @@ public class SpriteCreator : MonoBehaviour
                 break;
             }
         }
-
-          Debug.Log(clickedBellTags.Count + " / " + (count-1));
+        // (count-1)
+          Debug.Log(clickedBellTags.Count + " / " + 35);
         
     }
 }
