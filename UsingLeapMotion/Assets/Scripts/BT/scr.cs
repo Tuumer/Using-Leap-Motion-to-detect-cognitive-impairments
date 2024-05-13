@@ -81,10 +81,7 @@ public class SpriteCreator : MonoBehaviour
 
     public void CompareTags()
     {
-        Debug.Log("Clicked Bell Tags:");
-        
 
-        // Compare clicked bell tags with initial list
         bool allBellsClicked = true;
         foreach (string bellTag in initialBellTags)
         {
