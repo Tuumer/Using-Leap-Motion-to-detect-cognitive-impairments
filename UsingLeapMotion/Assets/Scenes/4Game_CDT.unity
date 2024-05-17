@@ -1117,6 +1117,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   screenshotButton: {fileID: 1106362249}
   popUp: {fileID: 1970936969}
+  ellipseImage: {fileID: 2119210255}
 --- !u!1 &1189180807
 GameObject:
   m_ObjectHideFlags: 0

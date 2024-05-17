@@ -12,13 +12,14 @@ public class Screenshot : MonoBehaviour
 
     private void Start()
     {
-        // Define the path for the screenshots folder
-        screenshotFolder = Path.Combine(UnityEngine.Application.persistentDataPath, "screenshots");
+        // Define the path for the existing screenshots folder
+        screenshotFolder = Path.Combine(UnityEngine.Application.dataPath, "..", "screenshots");
 
         // Ensure the folder exists
         if (!Directory.Exists(screenshotFolder))
         {
-            Directory.CreateDirectory(screenshotFolder);
+            UnityEngine.Debug.LogError("The specified screenshots folder does not exist: " + screenshotFolder);
+            return;
         }
 
         // Set up the screenshot button listener
@@ -67,7 +68,7 @@ public class Screenshot : MonoBehaviour
     private void ActivateEllipseImage()
     {
         ellipseImage.SetActive(true);
-        Invoke("DeactivateEllipseImage", 2.0f); // Deactivate the ellipse image after 2 seconds
+        Invoke("DeactivateEllipseImage", 100.0f); // Deactivate the ellipse image after 2 seconds
     }
 
     private void DeactivateEllipseImage()
