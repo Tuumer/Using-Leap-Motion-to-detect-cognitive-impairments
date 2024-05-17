@@ -1,0 +1,21 @@
+{
+  "version": 2,
+  "dgSpecHash": "q7J5RNPRf9ksgeVjFD+EH9/EYzIolVWvDkbKwmz95zB6wm4jkMt35kx40WRBvA2KyaR8CtZwTkbctIoUAB5Gzw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Sarah\\Documents\\GitHub\\Using-Leap-Motion-to-detect-cognitive-impairments\\UsingLeapMotion\\Assets\\Scripts\\ViewResult\\CDT_python\\CDT_python\\CDT_python.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Sarah\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
+    "C:\\Users\\Sarah\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\Sarah\\.nuget\\packages\\microsoft.netcore.targets\\1.1.0\\microsoft.netcore.targets.1.1.0.nupkg.sha512",
+    "C:\\Users\\Sarah\\.nuget\\packages\\pythonnet\\3.0.1\\pythonnet.3.0.1.nupkg.sha512",
+    "C:\\Users\\Sarah\\.nuget\\packages\\system.io\\4.3.0\\system.io.4.3.0.nupkg.sha512",
+    "C:\\Users\\Sarah\\.nuget\\packages\\system.reflection\\4.3.0\\system.reflection.4.3.0.nupkg.sha512",
+    "C:\\Users\\Sarah\\.nuget\\packages\\system.reflection.emit\\4.3.0\\system.reflection.emit.4.3.0.nupkg.sha512",
+    "C:\\Users\\Sarah\\.nuget\\packages\\system.reflection.emit.ilgeneration\\4.3.0\\system.reflection.emit.ilgeneration.4.3.0.nupkg.sha512",
+    "C:\\Users\\Sarah\\.nuget\\packages\\system.reflection.primitives\\4.3.0\\system.reflection.primitives.4.3.0.nupkg.sha512",
+    "C:\\Users\\Sarah\\.nuget\\packages\\system.runtime\\4.3.0\\system.runtime.4.3.0.nupkg.sha512",
+    "C:\\Users\\Sarah\\.nuget\\packages\\system.text.encoding\\4.3.0\\system.text.encoding.4.3.0.nupkg.sha512",
+    "C:\\Users\\Sarah\\.nuget\\packages\\system.threading.tasks\\4.3.0\\system.threading.tasks.4.3.0.nupkg.sha512"
+  ],
+  "logs": []
+}
