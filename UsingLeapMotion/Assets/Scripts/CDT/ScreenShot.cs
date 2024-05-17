@@ -8,6 +8,7 @@ public class Screenshot : MonoBehaviour
     public Button screenshotButton;
     public GameObject popUp;
     public GameObject ellipseImage;
+    public GameObject ellipseImage1;
     private string screenshotFolder;
 
     private void Start()
@@ -41,6 +42,11 @@ public class Screenshot : MonoBehaviour
             ellipseImage.SetActive(false);
         }
 
+        if(ellipseImage1 != null)
+        {
+            ellipseImage1.SetActive(false);
+        }
+
         // Create the filename for the screenshot
         string filename = Path.Combine(screenshotFolder, "screenshot-" + DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + ".png");
         UnityEngine.Debug.Log("Saving screenshot to: " + filename);
@@ -50,6 +56,11 @@ public class Screenshot : MonoBehaviour
 
         // Reactivate the ellipse image after taking the screenshot
         if (ellipseImage != null)
+        {
+            Invoke("ActivateEllipseImage", 0.5f); // Adjust the delay as needed
+        }
+
+        if (ellipseImage1 != null)
         {
             Invoke("ActivateEllipseImage", 0.5f); // Adjust the delay as needed
         }
@@ -74,6 +85,17 @@ public class Screenshot : MonoBehaviour
     private void DeactivateEllipseImage()
     {
         ellipseImage.SetActive(false);
+    }
+
+    private void ActivateEllipseImage1()
+    {
+        ellipseImage1.SetActive(true);
+        Invoke("DeactivateEllipseImage", 100.0f); // Deactivate the ellipse image after 2 seconds
+    }
+
+    private void DeactivateEllipseImage1()
+    {
+        ellipseImage1.SetActive(false);
     }
 
     private void ActivatePopUp()
