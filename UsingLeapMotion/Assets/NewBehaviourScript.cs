@@ -39,6 +39,13 @@ public class sampleCodeSnippet : MonoBehaviour
             outputPrediction.text = outputTensor[0].ToString();
         }
     }
+
+    public void OnDestroy()
+    {
+        worker?.Dispose();
+    }
+
+/*
         // Create a worker for executing the model
         worker = onnxAsset.CreateWorker();
 
@@ -51,7 +58,4 @@ public class sampleCodeSnippet : MonoBehaviour
             var indexWithHighestProbability = output[0];
 
             UnityEngine.Debug.Log($"Image was recognised as class number: " + output[0] + " " + output[1]);
-        }
-    }
-
-}
+*/
