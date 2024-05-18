@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-
 using UnityEngine;
 using TMPro;
 using Unity.Barracuda;
@@ -20,6 +19,7 @@ public class sampleCodeSnippet : MonoBehaviour
 
     void Start()
     {
+        // Load the ONNX model
         runtimeModel = ModelLoader.Load(onnxAsset);
         worker = WorkerFactory.CreateWorker(WorkerFactory.Type.Auto, runtimeModel);
         outputLayerName = runtimeModel.outputs[runtimeModel.outputs.Count - 1];  // Get the name of the last output layer
@@ -27,13 +27,52 @@ public class sampleCodeSnippet : MonoBehaviour
 
     public void Predict()
     {
-        using (Tensor inputTensor = new Tensor(inputImage, channels: 3))  // Create tensor from Texture2D
-        {
-            worker.Execute(inputTensor);
+        // Preprocess the input image
+        Tensor inputTensor = PreprocessImage(inputImage);
 
-            Tensor outputTensor = worker.PeekOutput(outputLayerName);
-            outputPrediction.text = outputTensor[0].ToString();
+        if (inputTensor == null)
+        {
+            UnityEngine.Debug.LogError("Failed to preprocess the image.");
+            return;
         }
+
+        worker.Execute(inputTensor);
+
+        Tensor outputTensor = worker.PeekOutput(outputLayerName);
+        outputPrediction.text = outputTensor[0].ToString();
+
+        // Dispose the tensors to free resources
+        inputTensor.Dispose();
+        outputTensor.Dispose();
+    }
+
+    // Preprocess the image to match the model's expected input dimensions and format
+    private Tensor PreprocessImage(Texture2D originalImage)
+    {
+        int width = 224;  // Example width, replace with your model's expected width
+        int height = 224; // Example height, replace with your model's expected height
+
+        // Resize the image
+        Texture2D resizedImage = new Texture2D(width, height, TextureFormat.RGB24, false);
+        Color[] pixels = originalImage.GetPixels();
+        resizedImage.SetPixels(pixels);
+        resizedImage.Apply();
+
+        // Convert the resized image to a float array
+        Color[] resizedPixels = resizedImage.GetPixels();
+        float[] floatValues = new float[resizedPixels.Length * 3];
+        for (int i = 0; i < resizedPixels.Length; i++)
+        {
+            Color pixel = resizedPixels[i];
+            floatValues[i * 3 + 0] = pixel.r;
+            floatValues[i * 3 + 1] = pixel.g;
+            floatValues[i * 3 + 2] = pixel.b;
+        }
+
+        // Create tensor from float array
+        Tensor inputTensor = new Tensor(1, height, width, 3, floatValues);
+
+        return inputTensor;
     }
 
     void OnDestroy()
@@ -41,18 +80,3 @@ public class sampleCodeSnippet : MonoBehaviour
         worker?.Dispose();
     }
 }
-
-/*
-        // Create a worker for executing the model
-        worker = onnxAsset.CreateWorker();
-
-        using (var input = new Tensor(imageToRecognise, channels: 3))
-        {
-            // execute neural network with specific input and get results back
-            var output = worker.Execute(input).PeekOutput();
-
-            // the following line will access values of the output tensor causing the main thread to block until neural network execution is done
-            var indexWithHighestProbability = output[0];
-
-            UnityEngine.Debug.Log($"Image was recognised as class number: " + output[0] + " " + output[1]);
-*/

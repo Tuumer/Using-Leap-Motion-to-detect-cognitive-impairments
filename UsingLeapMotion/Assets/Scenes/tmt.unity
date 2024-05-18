@@ -843,7 +843,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04ce035768c0f0e4e985fc3b26fab1fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputImage: {fileID: 0}
+  inputImage: {fileID: 2800000, guid: f34a4be0bf3205947b75d4f63525ecc7, type: 3}
   outputPrediction: {fileID: 451818530}
   onnxAsset: {fileID: 5022602860645237092, guid: acc9982011a970540be7e25df001f6d4, type: 3}
 --- !u!1 &576253965
