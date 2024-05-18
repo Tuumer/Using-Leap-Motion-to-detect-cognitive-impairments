@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "com.mstevenson.unitynotebook": "https://github.com/mstevenson/UnityNotebook.git",
     "com.ultraleap.tracking": "6.14.0",
     "com.unity.collab-proxy": "2.2.0",
     "com.unity.feature.development": "1.0.1",

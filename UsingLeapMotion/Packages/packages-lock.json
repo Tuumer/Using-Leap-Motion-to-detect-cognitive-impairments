@@ -1,5 +1,15 @@
 {
   "dependencies": {
+    "com.mstevenson.unitynotebook": {
+      "version": "https://github.com/mstevenson/UnityNotebook.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.unity.editorcoroutines": "1.0.0",
+        "com.unity.nuget.newtonsoft-json": "3.0.2"
+      },
+      "hash": "3351f7b7195db9ee58b9b5b18f59222966bdcec2"
+    },
     "com.ultraleap.tracking": {
       "version": "6.14.0",
       "depth": 0,
@@ -62,6 +72,13 @@
     },
     "com.unity.ide.vscode": {
       "version": "1.2.5",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.nuget.newtonsoft-json": {
+      "version": "3.2.1",
       "depth": 1,
       "source": "registry",
       "dependencies": {},
