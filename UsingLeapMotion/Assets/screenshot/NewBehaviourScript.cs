@@ -43,7 +43,7 @@ public class ImageProcessor : MonoBehaviour
         // Define cropping regions
         Rect[] croppedRegions = new Rect[]
         {
-            new Rect(x2 + 134, y1 + 15, 270, 270),
+            new Rect(x2 + 80, y1 + 15, 270, 270),
             new Rect(x3 - 15 - 270, y2 - 80 - 270, 270, 270),
             new Rect(x3 - 15 - 270, y2 + 80, 270, 270),
             new Rect(x2 + 80, y3 - 15 - 270, 270, 270),
