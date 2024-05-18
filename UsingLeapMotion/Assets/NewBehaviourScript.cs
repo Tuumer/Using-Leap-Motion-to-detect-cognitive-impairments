@@ -22,7 +22,7 @@ public class sampleCodeSnippet : MonoBehaviour
     {
         runtimeModel = ModelLoader.Load(onnxAsset);
         worker = WorkerFactory.CreateWorker(WorkerFactory.Type.Auto, runtimeModel);
-        outputLayerName = runtimeModel.outputs.[runtimeModel.outputs.Count - 1];
+        outputLayerName = runtimeModel.outputs[runtimeModel.outputs.Count - 1];  // Corrected line
     }
 
     public void Predict()
@@ -30,20 +30,22 @@ public class sampleCodeSnippet : MonoBehaviour
         int numberInput;
         if (int.TryParse(inputValue.text, out numberInput))
         {
-            using Tensor inputTensor = new Tensor(1, 1);
+            using (Tensor inputTensor = new Tensor(1, 1))  // Corrected using statement
+            {
+                inputTensor[0] = numberInput;
+                worker.Execute(inputTensor);
 
-            inputTensor[0] = numberInput;
-            worker.Execute(inputTensor);
-
-            Tensor outputTensor = worker.PeekOutput(outputLayerName);
-            outputPrediction.text = outputTensor[0].ToString();
+                Tensor outputTensor = worker.PeekOutput(outputLayerName);
+                outputPrediction.text = outputTensor[0].ToString();
+            }
         }
     }
 
-    public void OnDestroy()
+    void OnDestroy()
     {
         worker?.Dispose();
     }
+}
 
 /*
         // Create a worker for executing the model
