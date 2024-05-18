@@ -18,8 +18,15 @@ public class Predictor : MonoBehaviour
 
     void Start()
     {
+
+        if( DataTransfer.state_cdt == true){
+
+        
         runtimeModel = ModelLoader.Load(modelAsset);
         worker = WorkerFactory.CreateWorker(WorkerFactory.Type.ComputePrecompiled, runtimeModel);
+        Predict();
+        
+        }
     }
 
     public void Predict()
