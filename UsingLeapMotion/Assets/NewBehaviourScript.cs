@@ -8,7 +8,7 @@ using Unity.Barracuda;
 public class sampleCodeSnippet : MonoBehaviour
 {
     [SerializeField]
-    private TMP_InputField inputValue;
+    private RenderTexture inputImage;
     [SerializeField]
     private TMP_Text outputPrediction;
     [SerializeField]
@@ -22,23 +22,28 @@ public class sampleCodeSnippet : MonoBehaviour
     {
         runtimeModel = ModelLoader.Load(onnxAsset);
         worker = WorkerFactory.CreateWorker(WorkerFactory.Type.Auto, runtimeModel);
-        outputLayerName = runtimeModel.outputs[runtimeModel.outputs.Count - 1];  // Corrected line
+        outputLayerName = runtimeModel.outputs[runtimeModel.outputs.Count - 1];  // Get the name of the last output layer
     }
 
     public void Predict()
     {
-        int numberInput;
-        if (int.TryParse(inputValue.text, out numberInput))
-        {
-            using (Tensor inputTensor = new Tensor(1, 1))  // Corrected using statement
-            {
-                inputTensor[0] = numberInput;
-                worker.Execute(inputTensor);
+        // Convert the RenderTexture to a Tensor
+        Texture2D texture = new Texture2D(inputImage.width, inputImage.height, TextureFormat.RGB24, false);
+        RenderTexture.active = inputImage;
+        texture.ReadPixels(new Rect(0, 0, inputImage.width, inputImage.height), 0, 0);
+        texture.Apply();
 
-                Tensor outputTensor = worker.PeekOutput(outputLayerName);
-                outputPrediction.text = outputTensor[0].ToString();
-            }
+        using (Tensor inputTensor = new Tensor(texture, channels: 3))  // Create tensor from Texture2D
+        {
+            worker.Execute(inputTensor);
+
+            Tensor outputTensor = worker.PeekOutput(outputLayerName);
+            outputPrediction.text = outputTensor[0].ToString();
         }
+
+        // Clean up
+        RenderTexture.active = null;
+        Destroy(texture);
     }
 
     void OnDestroy()
