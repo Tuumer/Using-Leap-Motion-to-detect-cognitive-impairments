@@ -14,7 +14,7 @@ public class Screenshot : MonoBehaviour
     private void Start()
     {
         // Define the path for the existing screenshots folder
-        screenshotFolder = Path.Combine(UnityEngine.Application.dataPath, "..", "screenshots");
+        screenshotFolder = Path.Combine(UnityEngine.Application.dataPath, "screenshots");
 
         // Ensure the folder exists
         if (!Directory.Exists(screenshotFolder))
@@ -48,7 +48,7 @@ public class Screenshot : MonoBehaviour
         }
 
         // Create the filename for the screenshot
-        string filename = Path.Combine(screenshotFolder, "screenshot-" + DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + ".png");
+        string filename = Path.Combine(screenshotFolder, "aaa.png");
         UnityEngine.Debug.Log("Saving screenshot to: " + filename);
 
         // Capture the screenshot
