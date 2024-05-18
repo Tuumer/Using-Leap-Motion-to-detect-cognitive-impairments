@@ -1,23 +1,17 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
-using Debug = UnityEngine.Debug; // Alias for UnityEngine.Debug
+using System.Diagnostics;
+using Debug = UnityEngine.Debug;
 
 public class ImageProcessor : MonoBehaviour
 {
-    public Texture2D originalImage; // Assign your original image in the Unity Inspector
     public Button processButton; // Assign your process button in the Unity Inspector
 
     private int imageCounter = 1; // Counter for naming images
 
     void Start()
     {
-        if (originalImage == null)
-        {
-            Debug.LogError("Original image not assigned!");
-            return;
-        }
-
         if (processButton != null)
         {
             processButton.onClick.AddListener(ProcessImage);
@@ -30,6 +24,27 @@ public class ImageProcessor : MonoBehaviour
 
     void ProcessImage()
     {
+        // Find the original image in the Assets folder
+        string[] imagePaths = Directory.GetFiles(Application.dataPath, "aaa.png", SearchOption.AllDirectories);
+
+        if (imagePaths.Length == 0)
+        {
+            Debug.LogError("No PNG images found in the Assets folder!");
+            return;
+        }
+
+        // Load the first PNG image found
+        string imagePath = imagePaths[0].Replace(Application.dataPath, "Assets");
+        Texture2D originalImage = LoadImageFromFile(imagePath);
+
+        if (originalImage == null)
+        {
+            Debug.LogError("Failed to load the original image!");
+            return;
+        }
+
+        Debug.Log($"Original image loaded from: {imagePath}");
+
         // Resize the original image to 1920x1080
         originalImage = ResizeTexture(originalImage, 1920, 1080);
 
@@ -86,7 +101,7 @@ public class ImageProcessor : MonoBehaviour
 
             // Save the cropped texture as PNG with sequential name
             byte[] bytes = croppedTexture.EncodeToPNG();
-            string folderPath = Application.dataPath + "/screenshots/cropped_images";
+            string folderPath = UnityEngine.Application.dataPath + "/screenshots/cropped_images";
             if (!Directory.Exists(folderPath))
             {
                 Directory.CreateDirectory(folderPath);
@@ -114,5 +129,17 @@ public class ImageProcessor : MonoBehaviour
         RenderTexture.active = previous;
         RenderTexture.ReleaseTemporary(rt);
         return resizedTexture;
+    }
+
+    // Load an image from file
+    private Texture2D LoadImageFromFile(string filePath)
+    {
+        byte[] fileData = File.ReadAllBytes(filePath);
+        Texture2D texture = new Texture2D(2, 2);
+        if (texture.LoadImage(fileData))
+        {
+            return texture;
+        }
+        return null;
     }
 }
