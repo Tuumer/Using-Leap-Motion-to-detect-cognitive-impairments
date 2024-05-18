@@ -86,7 +86,7 @@ public class ImageProcessor : MonoBehaviour
 
             // Save the cropped texture as PNG with sequential name
             byte[] bytes = croppedTexture.EncodeToPNG();
-            string folderPath = Application.dataPath + "/screenshot/cropped_images";
+            string folderPath = Application.dataPath + "/screenshots/cropped_images";
             if (!Directory.Exists(folderPath))
             {
                 Directory.CreateDirectory(folderPath);
