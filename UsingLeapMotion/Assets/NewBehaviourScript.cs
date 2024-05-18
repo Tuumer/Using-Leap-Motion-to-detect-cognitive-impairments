@@ -49,14 +49,31 @@ public class sampleCodeSnippet : MonoBehaviour
     // Preprocess the image to match the model's expected input dimensions and format
     private Tensor PreprocessImage(Texture2D originalImage)
     {
+        if (originalImage == null)
+        {
+            UnityEngine.Debug.LogError("Input image is null.");
+            return null;
+        }
+
+        // Check if the texture is readable
+        if (!originalImage.isReadable)
+        {
+            UnityEngine.Debug.LogError("Input image is not readable.");
+            return null;
+        }
+
         int width = 224;  // Example width, replace with your model's expected width
         int height = 224; // Example height, replace with your model's expected height
 
         // Resize the image
         Texture2D resizedImage = new Texture2D(width, height, TextureFormat.RGB24, false);
-        Color[] pixels = originalImage.GetPixels();
-        resizedImage.SetPixels(pixels);
-        resizedImage.Apply();
+
+        // Check if the resizing operation was successful
+        if (!Graphics.ConvertTexture(originalImage, resizedImage))
+        {
+            UnityEngine.Debug.LogError("Failed to convert texture.");
+            return null;
+        }
 
         // Convert the resized image to a float array
         Color[] resizedPixels = resizedImage.GetPixels();
