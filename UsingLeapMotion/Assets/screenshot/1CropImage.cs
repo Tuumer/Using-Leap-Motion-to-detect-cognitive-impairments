@@ -1,10 +1,11 @@
 using System;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
-using OpenCvSharp;
 
 class Program
 {
-    static Mat ProcessTriangle(Mat img, int number)
+    static Bitmap ProcessTriangle(Bitmap img, int number)
     {
         int x1 = 690, y1 = 40;
         int x3 = 1690, y3 = 1040;
@@ -22,39 +23,44 @@ class Program
             new[] {new Point(x1, y1), new Point(x2, y2), new Point(x2 - 134, y1)}
         };
 
-        Rect r = Cv2.BoundingRect(triangles[number]);
+        Point[] triangle = triangles[number];
+        Rectangle r = new Rectangle(triangle[0].X, triangle[0].Y, triangle[2].X - triangle[0].X, triangle[2].Y - triangle[0].Y);
 
-        Point[] triangleCropped =
+        Bitmap imgCropped = img.Clone(r, img.PixelFormat);
+        Bitmap imgBackground = new Bitmap(img.Width, img.Height);
+
+        using (Graphics g = Graphics.FromImage(imgBackground))
         {
-            new Point(triangles[number][0].X - r.X, triangles[number][0].Y - r.Y),
-            new Point(triangles[number][1].X - r.X, triangles[number][1].Y - r.Y),
-            new Point(triangles[number][2].X - r.X, triangles[number][2].Y - r.Y)
+            g.Clear(Color.White);
+            g.DrawImage(imgCropped, new Rectangle(r.X, r.Y, r.Width, r.Height));
+        }
+
+        Bitmap imgRgb = new Bitmap(imgBackground.Width, imgBackground.Height);
+        using (Graphics g = Graphics.FromImage(imgRgb))
+        {
+            g.Clear(Color.White);
+            g.DrawImage(imgBackground, new Rectangle(0, 0, imgBackground.Width, imgBackground.Height));
+        }
+
+        int[][] croppedRegions =
+        {
+            new[] {y1 + 15, y1 + 15 + 270, x2 + 80, x2 + 80 + 270},
+            new[] {y2 - 80 - 270, y2 - 80, x3 - 15 - 270, x3 - 15},
+            new[] {y2 + 80, y2 + 80 + 270, x3 - 15 - 270, x3 - 15},
+            new[] {y3 - 15 - 270, y3 - 15, x2 + 80, x2 + 80 + 270},
+            new[] {y3 - 15 - 270, y3 - 15, x2 - 80 - 270, x2 - 80},
+            new[] {y2 + 80, y2 + 80 + 270, x1 + 15, x1 + 15 + 270},
+            new[] {y2 - 80 - 270, y2 - 80, x1 + 15, x1 + 15 + 270},
+            new[] {y1 + 15, y1 + 15 + 270, x2 - 80 - 270, x2 - 80}
         };
 
-        Console.WriteLine($"Triangle cropped coordinates: {string.Join(", ", triangleCropped)}");
-
-        Mat imgCropped = new Mat(img, r);
-        Mat warpMat = Cv2.GetAffineTransform(triangles[number], triangleCropped);
-        Mat imgBackgroundCropped = new Mat();
-        Cv2.WarpAffine(imgCropped, imgBackgroundCropped, warpMat, imgCropped.Size(), InterpolationFlags.Linear, BorderTypes.Reflect101);
-
-        Mat mask = Mat.Zeros(r.Size(), MatType.CV_32FC3);
-        Cv2.FillConvexPoly(mask, triangleCropped, Scalar.White, LineTypes.Link8, 0);
-
-        Cv2.Multiply(imgBackgroundCropped, mask, imgBackgroundCropped);
-        Cv2.Multiply(imgBackground.SubMat(r), 1 - mask, imgBackground.SubMat(r));
-        Cv2.Add(imgBackground.SubMat(r), imgBackgroundCropped, imgBackground.SubMat(r));
-
-        Mat imgRgb = new Mat();
-        Cv2.CvtColor(imgBackground, imgRgb, ColorConversionCodes.BGR2RGB);
-
-        int x1Crop = 15 + croppedRegions[number][0];
-        int x2Crop = 15 + croppedRegions[number][1];
-        int y1Crop = 80 + croppedRegions[number][2];
-        int y2Crop = 80 + croppedRegions[number][3];
-        Mat slicedImg = new Mat(imgRgb, new Rect(y1Crop, x1Crop, y2Crop - y1Crop, x2Crop - x1Crop));
-        Mat resizedImg64 = new Mat();
-        Cv2.Resize(slicedImg, resizedImg64, new Size(64, 64));
+        int x1Crop = croppedRegions[number][0];
+        int x2Crop = croppedRegions[number][1];
+        int y1Crop = croppedRegions[number][2];
+        int y2Crop = croppedRegions[number][3];
+        Rectangle cropRect = new Rectangle(y1Crop, x1Crop, y2Crop - y1Crop, x2Crop - x1Crop);
+        Bitmap slicedImg = imgRgb.Clone(cropRect, imgRgb.PixelFormat);
+        Bitmap resizedImg64 = new Bitmap(slicedImg, new Size(64, 64));
 
         return resizedImg64;
     }
@@ -62,8 +68,12 @@ class Program
     static void Main(string[] args)
     {
         string imagePath = "screenshot-2024-05-17-08-31-30.png";
-        Mat img = Cv2.ImRead(imagePath, ImreadModes.Color);
-        Cv2.BitwiseNot(img, img);
+        Bitmap img = new Bitmap(imagePath);
+
+        using (Graphics g = Graphics.FromImage(img))
+        {
+            g.DrawImage(img, new Rectangle(0, 0, img.Width, img.Height));
+        }
 
         string outputFolder = "cropped_images";
         if (!Directory.Exists(outputFolder))
@@ -71,8 +81,8 @@ class Program
 
         for (int number = 0; number < 8; number++)
         {
-            Mat imgTri = ProcessTriangle(img, number);
-            Cv2.ImWrite(Path.Combine(outputFolder, $"image_{number}.png"), imgTri);
+            Bitmap imgTri = ProcessTriangle(img, number);
+            imgTri.Save(Path.Combine(outputFolder, $"image_{number}.png"), ImageFormat.Png);
         }
     }
 }
