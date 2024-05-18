@@ -8,7 +8,7 @@ using Unity.Barracuda;
 public class sampleCodeSnippet : MonoBehaviour
 {
     [SerializeField]
-    private Texture2D imageToRecognise;
+    private TMP_InputField inputValue;
     [SerializeField]
     private TMP_Text outputPrediction;
     [SerializeField]
@@ -28,7 +28,16 @@ public class sampleCodeSnippet : MonoBehaviour
     public void Predict()
     {
         int numberInput;
-        if (int.)
+        if (int.TryParse(inputValue.text, out numberInput))
+        {
+            using Tensor inputTensor = new Tensor(1, 1);
+
+            inputTensor[0] = numberInput;
+            worker.Execute(inputTensor);
+
+            Tensor outputTensor = worker.PeekOutput(outputLayerName);
+            outputPrediction.text = outputTensor[0].ToString();
+        }
     }
         // Create a worker for executing the model
         worker = onnxAsset.CreateWorker();
