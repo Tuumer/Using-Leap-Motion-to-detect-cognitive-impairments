@@ -31,12 +31,9 @@ void Start()
     cdt_post = GameObject.Find("Canvas/NotMainMenu/ButtonCDT (Post)");
     cdt = GameObject.Find("Canvas/NotMainMenu/ButtonCDT");
 
-    Debug.Log(lt_post);
 }
 
     void Update(){
-
-        Debug.Log(DataTransfer.state_line);
 
     if (DataTransfer.state_line && lt_post != null)
     {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Unity.Barracuda;
 
 public class DataTransfer : MonoBehaviour
 {
@@ -23,6 +24,8 @@ public class DataTransfer : MonoBehaviour
     public static bool state_line;
     public static bool state_cdt;
     public static bool state_bell;
+
+    public static string handoTrail;
 
     //In the result page
     public TextMeshProUGUI text_score_line;
@@ -54,7 +57,6 @@ public class DataTransfer : MonoBehaviour
     public TextMeshProUGUI text_acc_tmt_secondary;
     public TextMeshProUGUI text_acc_bell_secondary;
     public TextMeshProUGUI text_acc_cdt_secondary;
-
 
     void Start()
     {

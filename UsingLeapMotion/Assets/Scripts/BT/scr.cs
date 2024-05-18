@@ -89,7 +89,7 @@ public class SpriteCreator : MonoBehaviour
     public void CompareTags()
     {
 
-        bool allBellsClicked = true;
+        // bool allBellsClicked = true;
 
         duration = Time.time - startTime;
 
@@ -97,12 +97,15 @@ public class SpriteCreator : MonoBehaviour
         DataTransfer.time_bell = duration;
         DataTransfer.state_bell = true;
 
+        DataTransfer.score_cdt = 5;
+        DataTransfer.time_cdt = duration;
+
 
         foreach (string bellTag in initialBellTags)
         {
             if (!clickedBellTags.Contains(bellTag))
             {
-                allBellsClicked = false;
+                // allBellsClicked = false;
                 break;
             }
         }

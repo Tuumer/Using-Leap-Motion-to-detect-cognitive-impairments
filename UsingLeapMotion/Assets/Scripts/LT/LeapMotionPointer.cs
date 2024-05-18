@@ -151,6 +151,8 @@ public class LineFollowingGame : MonoBehaviour
     {
         string json = JsonUtility.ToJson(new HandTrailData(handTrail));
 
+        DataTransfer.handoTrail = json;
+
         // File.WriteAllText(Application.persistentDataPath + "/HandTrail.json", json);
 
         string filePath = Application.dataPath + "/Resources/HandTrail.json";
