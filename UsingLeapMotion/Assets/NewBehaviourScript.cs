@@ -4,11 +4,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using Unity.Barracuda;
+
 public class sampleCodeSnippet : MonoBehaviour
 {
+    [SerializeField]
+    private Texture2D imageToRecognise;
+    [SerializeField]
+    private TMP_Text outputPrediction;
+    [SerializeField]
     public NNModel onnxAsset;
-    public Texture2D imageToRecognise;
+
+    private Model runtimeModel;
     private IWorker worker;
+    private string outputLayerName;
+
     void Start()
     {
 
