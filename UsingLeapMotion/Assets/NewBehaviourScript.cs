@@ -55,39 +55,19 @@ public class sampleCodeSnippet : MonoBehaviour
             return null;
         }
 
-        // Check if the texture is readable
-        if (!originalImage.isReadable)
+        // Convert the Texture2D to a float array
+        Color[] pixels = originalImage.GetPixels();
+        float[] floatValues = new float[pixels.Length * 3];
+        for (int i = 0; i < pixels.Length; i++)
         {
-            UnityEngine.Debug.LogError("Input image is not readable.");
-            return null;
-        }
-
-        int width = 224;  // Example width, replace with your model's expected width
-        int height = 224; // Example height, replace with your model's expected height
-
-        // Resize the image
-        Texture2D resizedImage = new Texture2D(width, height, TextureFormat.RGB24, false);
-
-        // Check if the resizing operation was successful
-        if (!Graphics.ConvertTexture(originalImage, resizedImage))
-        {
-            UnityEngine.Debug.LogError("Failed to convert texture.");
-            return null;
-        }
-
-        // Convert the resized image to a float array
-        Color[] resizedPixels = resizedImage.GetPixels();
-        float[] floatValues = new float[resizedPixels.Length * 3];
-        for (int i = 0; i < resizedPixels.Length; i++)
-        {
-            Color pixel = resizedPixels[i];
+            Color pixel = pixels[i];
             floatValues[i * 3 + 0] = pixel.r;
             floatValues[i * 3 + 1] = pixel.g;
             floatValues[i * 3 + 2] = pixel.b;
         }
 
-        // Create tensor from float array
-        Tensor inputTensor = new Tensor(1, height, width, 3, floatValues);
+        // Create a tensor from the float array
+        Tensor inputTensor = new Tensor(1, originalImage.height, originalImage.width, 3, floatValues);
 
         return inputTensor;
     }
