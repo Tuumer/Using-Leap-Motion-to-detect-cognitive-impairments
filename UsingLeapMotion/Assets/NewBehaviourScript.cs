@@ -20,7 +20,16 @@ public class sampleCodeSnippet : MonoBehaviour
 
     void Start()
     {
+        runtimeModel = ModelLoader.Load(onnxAsset);
+        worker = WorkerFactory.CreateWorker(WorkerFactory.Type.Auto, runtimeModel);
+        outputLayerName = runtimeModel.outputs.[runtimeModel.outputs.Count - 1];
+    }
 
+    public void Predict()
+    {
+        int numberInput;
+        if (int.)
+    }
         // Create a worker for executing the model
         worker = onnxAsset.CreateWorker();
 
