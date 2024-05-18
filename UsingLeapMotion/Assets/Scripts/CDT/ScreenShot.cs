@@ -48,7 +48,7 @@ public class Screenshot : MonoBehaviour
         }
 
         // Create the filename for the screenshot
-        string filename = Path.Combine(screenshotFolder, "screenshot-" + DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + ".png");
+        string filename = Path.Combine(screenshotFolder, "aaa.png");
         UnityEngine.Debug.Log("Saving screenshot to: " + filename);
 
         // Capture the screenshot
