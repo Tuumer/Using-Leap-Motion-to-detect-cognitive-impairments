@@ -843,7 +843,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04ce035768c0f0e4e985fc3b26fab1fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputValue: {fileID: 283664605}
+  inputImage: {fileID: 0}
   outputPrediction: {fileID: 451818530}
   onnxAsset: {fileID: 5022602860645237092, guid: acc9982011a970540be7e25df001f6d4, type: 3}
 --- !u!1 &576253965
@@ -963,7 +963,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 828561720}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1198,10 +1198,10 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 828561721}
   - {fileID: 283664604}
   - {fileID: 451818529}
   - {fileID: 1317117305}
-  - {fileID: 828561721}
   m_Father: {fileID: 567297326}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}

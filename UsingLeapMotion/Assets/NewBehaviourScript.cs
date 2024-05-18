@@ -8,7 +8,7 @@ using Unity.Barracuda;
 public class sampleCodeSnippet : MonoBehaviour
 {
     [SerializeField]
-    private RenderTexture inputImage;
+    private Texture2D inputImage;
     [SerializeField]
     private TMP_Text outputPrediction;
     [SerializeField]
@@ -27,23 +27,13 @@ public class sampleCodeSnippet : MonoBehaviour
 
     public void Predict()
     {
-        // Convert the RenderTexture to a Tensor
-        Texture2D texture = new Texture2D(inputImage.width, inputImage.height, TextureFormat.RGB24, false);
-        RenderTexture.active = inputImage;
-        texture.ReadPixels(new Rect(0, 0, inputImage.width, inputImage.height), 0, 0);
-        texture.Apply();
-
-        using (Tensor inputTensor = new Tensor(texture, channels: 3))  // Create tensor from Texture2D
+        using (Tensor inputTensor = new Tensor(inputImage, channels: 3))  // Create tensor from Texture2D
         {
             worker.Execute(inputTensor);
 
             Tensor outputTensor = worker.PeekOutput(outputLayerName);
             outputPrediction.text = outputTensor[0].ToString();
         }
-
-        // Clean up
-        RenderTexture.active = null;
-        Destroy(texture);
     }
 
     void OnDestroy()
