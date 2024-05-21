@@ -9,6 +9,7 @@ public class Screenshot : MonoBehaviour
     public GameObject popUp;
     public GameObject ellipseImage;
     public GameObject ellipseImage1;
+    public GameObject empty;
     private string screenshotFolder;
 
     private void Start()
@@ -45,6 +46,11 @@ public class Screenshot : MonoBehaviour
         if(ellipseImage1 != null)
         {
             ellipseImage1.SetActive(false);
+        }
+
+        if (empty != null)
+        {
+            empty.SetActive(false);
         }
 
         // Create the filename for the screenshot
