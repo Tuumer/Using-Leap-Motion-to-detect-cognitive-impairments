@@ -13,22 +13,16 @@ public class MouseDraw : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     public Color32 penColour = new Color32(0, 0, 0, 255);
 
     [Tooltip("The Drawing Background Colour.")]
-    public Color32 backroundColour = new Color32(0, 0, 0, 0);
+    public Color32 backgroundColour = new Color32(0, 0, 0, 0);
 
     [Tooltip("Toggles between Pen and Eraser.")]
     public bool IsEraser = false;
-
+    public GameObject hourArrow;
     private bool _isInFocus = false;
     public bool IsInFocus
     {
         get => _isInFocus;
-        private set
-        {
-            if (value != _isInFocus)
-            {
-                _isInFocus = value;
-            }
-        }
+        private set => _isInFocus = value;
     }
 
     private float m_scaleFactor = 10;
@@ -36,16 +30,57 @@ public class MouseDraw : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     private Vector2? m_lastPos;
     [SerializeField] Text _timerText;
 
-    public int eraserRadius = 20; // Larger eraser radius
+    public int eraserRadius = 20;
+
+    public class ObjectBoundary
+    {
+        public Rect Boundary;
+        public Color32 ObjectColor;
+        public float Rotation;
+        public int TotalPixels;
+        public int DrawnPixels;
+
+        public ObjectBoundary(Rect boundary, Color32 objectColor, float rotation = 0)
+        {
+            Boundary = boundary;
+            ObjectColor = objectColor;
+            Rotation = rotation;
+            TotalPixels = CalculateTotalPixels(boundary, rotation);
+            DrawnPixels = 0;
+        }
+
+        public float GetDrawnPercentage()
+        {
+            return (float)DrawnPixels / TotalPixels * 100;
+        }
+
+        private static int CalculateTotalPixels(Rect boundary, float rotation)
+        {
+            float rad = rotation * Mathf.Deg2Rad;
+            float cos = Mathf.Cos(rad);
+            float sin = Mathf.Sin(rad);
+
+            float newWidth = Mathf.Abs(boundary.width * cos) + Mathf.Abs(boundary.height * sin);
+            float newHeight = Mathf.Abs(boundary.width * sin) + Mathf.Abs(boundary.height * cos);
+
+            return Mathf.RoundToInt(newWidth * newHeight);
+        }
+    }
+
+    public List<ObjectBoundary> ObjectBoundaries = new List<ObjectBoundary>();
 
     void Start()
     {
         Init();
+        // Initialize object boundaries independently
+        ObjectBoundaries.Add(new ObjectBoundary(new Rect(700, 141, 100, 400), Color.red, -60)); 
+        ObjectBoundaries.Add(new ObjectBoundary(new Rect(439, 250, 100, 400), Color.blue, 30)); 
+
     }
 
     private void OnEnable()
     {
-        m_image = transform.GetComponent<RawImage>();
+        m_image = GetComponent<RawImage>();
     }
 
     void Update()
@@ -58,16 +93,26 @@ public class MouseDraw : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
             if (Input.GetMouseButton(0))
             {
                 if (IsEraser)
+                {
                     ErasePixels(pos);
+                }
                 else
+                {
                     WritePixels(pos);
+                }
             }
         }
 
         if (Input.GetMouseButtonUp(0))
             m_lastPos = null;
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            DisplayPercentages();
+        }
     }
-void UpdateTimer()
+
+    void UpdateTimer()
     {
         float timeElapsed = Time.time;
         if (_timerText != null)
@@ -75,6 +120,7 @@ void UpdateTimer()
             _timerText.text = "Time Elapsed: " + Mathf.FloorToInt(timeElapsed).ToString();
         }
     }
+
     private void Init()
     {
         m_scaleFactor = HostCanvas.scaleFactor * 2;
@@ -84,7 +130,7 @@ void UpdateTimer()
         {
             for (int j = 0; j < tex.height; j++)
             {
-                tex.SetPixel(i, j, backroundColour);
+                tex.SetPixel(i, j, backgroundColour);
             }
         }
 
@@ -95,38 +141,24 @@ void UpdateTimer()
     private void WritePixels(Vector2 pos)
     {
         pos /= m_scaleFactor;
-        var mainTex = m_image.texture;
-        var tex2d = new Texture2D(mainTex.width, mainTex.height, TextureFormat.RGBA32, false);
+        var tex2d = CreateWritableTexture(m_image.texture);
 
-        var curTex = RenderTexture.active;
-        var renTex = new RenderTexture(mainTex.width, mainTex.height, 32);
-
-        Graphics.Blit(mainTex, renTex);
-        RenderTexture.active = renTex;
-
-        tex2d.ReadPixels(new Rect(0, 0, mainTex.width, mainTex.height), 0, 0);
-
-        var positions = m_lastPos.HasValue ? GetLinearPositions(m_lastPos.Value, pos) : new List<Vector2>() { pos };
+        var positions = m_lastPos.HasValue ? GetLinearPositions(m_lastPos.Value, pos) : new List<Vector2> { pos };
 
         foreach (var position in positions)
         {
-            var pixels = GetNeighbouringPixels(new Vector2(mainTex.width, mainTex.height), position, 2);
-
-            if (pixels.Count > 0)
-                foreach (var p in pixels)
+            var pixels = GetNeighbouringPixels(new Vector2(tex2d.width, tex2d.height), position, 2);
+            foreach (var p in pixels)
+            {
+                if (tex2d.GetPixel((int)p.x, (int)p.y) != penColour)
+                {
                     tex2d.SetPixel((int)p.x, (int)p.y, penColour);
+                    UpdateDrawnPixels(p, true);
+                }
+            }
         }
 
         tex2d.Apply();
-
-        RenderTexture.active = curTex;
-        renTex.Release();
-        Destroy(renTex);
-        Destroy(mainTex);
-        curTex = null;
-        renTex = null;
-        mainTex = null;
-
         m_image.texture = tex2d;
         m_lastPos = pos;
     }
@@ -134,9 +166,49 @@ void UpdateTimer()
     private void ErasePixels(Vector2 pos)
     {
         pos /= m_scaleFactor;
-        var mainTex = m_image.texture;
-        var tex2d = new Texture2D(mainTex.width, mainTex.height, TextureFormat.RGBA32, false);
+        var tex2d = CreateWritableTexture(m_image.texture);
 
+        var positions = GetNeighbouringPixels(new Vector2(tex2d.width, tex2d.height), pos, eraserRadius);
+
+        foreach (var position in positions)
+        {
+            var pixels = GetNeighbouringPixels(new Vector2(tex2d.width, tex2d.height), position, 1);
+            foreach (var p in pixels)
+            {
+                if (tex2d.GetPixel((int)p.x, (int)p.y) != backgroundColour)
+                {
+                    tex2d.SetPixel((int)p.x, (int)p.y, backgroundColour);
+                    UpdateDrawnPixels(p, false);
+                }
+            }
+        }
+
+        tex2d.Apply();
+        m_image.texture = tex2d;
+        m_lastPos = pos;
+    }
+
+    private void UpdateDrawnPixels(Vector2 p, bool isDrawing)
+    {
+        foreach (var obj in ObjectBoundaries)
+        {
+            if (IsPointInRotatedRect(p, obj.Boundary, obj.Rotation))
+            {
+                if (isDrawing)
+                {
+                    obj.DrawnPixels++;
+                }
+                else
+                {
+                    obj.DrawnPixels--;
+                }
+            }
+        }
+    }
+
+    private Texture2D CreateWritableTexture(Texture mainTex)
+    {
+        var tex2d = new Texture2D(mainTex.width, mainTex.height, TextureFormat.RGBA32, false);
         var curTex = RenderTexture.active;
         var renTex = new RenderTexture(mainTex.width, mainTex.height, 32);
 
@@ -144,30 +216,13 @@ void UpdateTimer()
         RenderTexture.active = renTex;
 
         tex2d.ReadPixels(new Rect(0, 0, mainTex.width, mainTex.height), 0, 0);
-
-        var positions = GetNeighbouringPixels(new Vector2(mainTex.width, mainTex.height), pos, eraserRadius);
-
-        foreach (var position in positions)
-        {
-            var pixels = GetNeighbouringPixels(new Vector2(mainTex.width, mainTex.height), position, 1);
-
-            if (pixels.Count > 0)
-                foreach (var p in pixels)
-                    tex2d.SetPixel((int)p.x, (int)p.y, backroundColour);
-        }
-
         tex2d.Apply();
 
         RenderTexture.active = curTex;
         renTex.Release();
         Destroy(renTex);
-        Destroy(mainTex);
-        curTex = null;
-        renTex = null;
-        mainTex = null;
 
-        m_image.texture = tex2d;
-        m_lastPos = pos;
+        return tex2d;
     }
 
     private List<Vector2> GetNeighbouringPixels(Vector2 textureSize, Vector2 position, int brushRadius)
@@ -212,4 +267,25 @@ void UpdateTimer()
     public void OnPointerEnter(PointerEventData eventData) => IsInFocus = true;
 
     public void OnPointerExit(PointerEventData eventData) => IsInFocus = false;
+
+    void DisplayPercentages()
+    {
+        Debug.Log("Hour: " + ObjectBoundaries[0].GetDrawnPercentage());
+        Debug.Log("Minutes: " + ObjectBoundaries[1].GetDrawnPercentage());
+    }
+
+    private bool IsPointInRotatedRect(Vector2 point, Rect rect, float rotation)
+    {
+        Vector2 localPoint = point - new Vector2(rect.x + rect.width / 2, rect.y + rect.height / 2);
+
+        float rad = -rotation * Mathf.Deg2Rad;
+        float cos = Mathf.Cos(rad);
+        float sin = Mathf.Sin(rad);
+
+        float localX = cos * localPoint.x - sin * localPoint.y;
+        float localY = sin * localPoint.x + cos * localPoint.y;
+
+        return Mathf.Abs(localX) <= rect.width / 2 && Mathf.Abs(localY) <= rect.height / 2;
+    }
 }
+

@@ -1745,10 +1745,11 @@ MonoBehaviour:
   penColour:
     serializedVersion: 2
     rgba: 4278190080
-  backroundColour:
+  backgroundColour:
     serializedVersion: 2
-    rgba: 16777215
+    rgba: 5921428
   IsEraser: 0
+  hourArrow: {fileID: 0}
   _timerText: {fileID: 1191459729}
   eraserRadius: 10
 --- !u!222 &1293737263
@@ -2081,7 +2082,7 @@ Canvas:
   m_GameObject: {fileID: 1487786062}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -2594,7 +2595,7 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
-  orthographic: 0
+  orthographic: 1
   orthographic size: 5
   m_Depth: -1
   m_CullingMask:
