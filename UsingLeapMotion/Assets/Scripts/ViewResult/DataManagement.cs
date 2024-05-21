@@ -52,7 +52,6 @@ public class DataManagement : MonoBehaviour
 
             int lastId = 0;
 
-        // Retrieve the last ID from the Patient table
         using (var command = connection.CreateCommand())
         {
             command.CommandText = "SELECT MAX(id) FROM Patient";
@@ -68,8 +67,8 @@ public class DataManagement : MonoBehaviour
         }
 
             using (var command = connection.CreateCommand()) {
-             command.CommandText = "UPDATE Patient SET tmt_result = @tmt_res, cdt_result = @cdt_res, bell_result = @bell_res, line_result = @line_res, " +
-                                  "tmt_time = @tmt_res_time, cdt_time = @cdt_time, bell_time = @bell_time, line_time = @line_time, hand_trail = @hando_trail WHERE id = @lastId";
+             command.CommandText = "UPDATE Patient SET tmt_result = @tmt_res, cdt_result = @cdt_res, bell_result = @bell_res, line_result = @line_res," +
+                                  "tmt_time = @tmt_res_time, cdt_time = @cdt_time, bell_time = @bell_time, line_time = @line_time, hand_trail = @hando_trail WHERE id = @lastId" ;
             command.Parameters.AddWithValue("@tmt_res", tmt_res);
             command.Parameters.AddWithValue("@cdt_res", DataTransfer.score_cdt);
             command.Parameters.AddWithValue("@bell_res", DataTransfer.score_bell);

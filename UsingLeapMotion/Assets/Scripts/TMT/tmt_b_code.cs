@@ -89,7 +89,7 @@ namespace _Project
             {
                 float correctRatio = CountCorrectObjects();
 
-                duration = Time.time - startTime;
+                duration = Mathf.Round((Time.time-startTime) * 100f) / 100f;
 
                 DataTransfer.score_tmt_b = correctRatio;
                 DataTransfer.time_tmt_b = duration;

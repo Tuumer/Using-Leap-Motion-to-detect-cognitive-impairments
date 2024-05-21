@@ -76,11 +76,11 @@ public class DataTransfer : MonoBehaviour
 
         text_score_bell.text=$"{score_bell}";
         text_time_bell.text=$"{time_bell}";
-        text_acc_bell.text=$"{score_bell/35*100}%";
+        text_acc_bell.text=$"{Mathf.Round(score_bell/35*100)}%";
 
         text_score_cdt.text=$"{score_cdt}";
         text_time_cdt.text=$"{time_cdt}";
-        text_acc_cdt.text="90%";
+        text_acc_cdt.text=$"{score_cdt/10*100}%";
 
         //Secondary menu
         text_score_line_secondary.text=$"{score_line}";
@@ -93,7 +93,11 @@ public class DataTransfer : MonoBehaviour
 
         text_score_bell_secondary.text=$"{score_bell}";
         text_time_bell_secondary.text=$"{time_bell}";
-        text_acc_bell_secondary.text=$"{score_bell/35*100}%";
+        text_acc_bell_secondary.text=$"{Mathf.Round(score_bell/35*100)}%";
+
+        text_score_cdt_secondary.text=$"{score_cdt}";
+        text_time_cdt_secondary.text=$"{time_cdt}";
+        text_acc_cdt_secondary.text=$"{score_cdt/10*100}%";
 
 
     }

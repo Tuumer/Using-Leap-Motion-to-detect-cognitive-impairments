@@ -19,6 +19,7 @@ public class toGame : MonoBehaviour
     private GameObject bell;
     private GameObject cdt_post;
     private GameObject cdt;
+    private GameObject button_result;
 
 void Start()
 {
@@ -30,6 +31,7 @@ void Start()
     bell = GameObject.Find("Canvas/NotMainMenu/ButtonBT");
     cdt_post = GameObject.Find("Canvas/NotMainMenu/ButtonCDT (Post)");
     cdt = GameObject.Find("Canvas/NotMainMenu/ButtonCDT");
+    button_result = GameObject.Find("Canvas/NotMainMenu/ButtonResult");
 
 }
 
@@ -54,6 +56,12 @@ void Start()
     {
         cdt_post.SetActive(true);
         cdt.SetActive(false);  
+    }
+
+    if(DataTransfer.state_bell && DataTransfer.state_line && DataTransfer.state_tmt_a && DataTransfer.state_tmt_b  && DataTransfer.state_cdt
+       && button_result!=null){
+
+        button_result.SetActive(true);
     }
 
 

@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
-using System.Diagnostics;
 using Debug = UnityEngine.Debug;
 
 public class ImageProcessor : MonoBehaviour
@@ -10,19 +9,7 @@ public class ImageProcessor : MonoBehaviour
 
     private int imageCounter = 1; // Counter for naming images
 
-    void Start()
-    {
-        if (processButton != null)
-        {
-            processButton.onClick.AddListener(ProcessImage);
-        }
-        else
-        {
-            Debug.LogWarning("Process button not assigned!");
-        }
-    }
-
-    void ProcessImage()
+    public void ProcessImage()
     {
         // Find the original image in the Assets folder
         string[] imagePaths = Directory.GetFiles(Application.dataPath, "aaa.png", SearchOption.AllDirectories);
@@ -84,24 +71,29 @@ public class ImageProcessor : MonoBehaviour
             {
                 for (int x = 0; x < region.width; x++)
                 {
-                    int index = (int)(region.y + y) * originalImage.width + (int)(region.x + x);
+                    int srcX = (int)region.x + x;
+                    int srcY = (int)region.y + y;
+                    int index = srcY * originalImage.width + srcX;
 
                     // Check if index is within bounds
-                    if (index >= 0 && index < pixels.Length)
+                    if (srcX < originalImage.width && srcY < originalImage.height)
                     {
                         croppedTexture.SetPixel(x, y, pixels[index]);
                     }
                     else
                     {
-                        Debug.LogError($"Index out of bounds: {index}");
+                        Debug.LogError($"Index out of bounds: srcX={srcX}, srcY={srcY}, index={index}");
                     }
                 }
             }
             croppedTexture.Apply();
 
-            // Save the cropped texture as PNG with sequential name
-            byte[] bytes = croppedTexture.EncodeToPNG();
-            string folderPath = UnityEngine.Application.dataPath + "/screenshots/cropped_images";
+            // Resize the cropped texture to 64x64
+            Texture2D resizedCroppedTexture = ResizeTexture(croppedTexture, 64, 64);
+
+            // Save the resized cropped texture as PNG with sequential name
+            byte[] bytes = resizedCroppedTexture.EncodeToPNG();
+            string folderPath = Path.Combine(Application.dataPath, "screenshots/cropped_images");
             if (!Directory.Exists(folderPath))
             {
                 Directory.CreateDirectory(folderPath);
@@ -111,9 +103,11 @@ public class ImageProcessor : MonoBehaviour
 
             // Clean up
             Destroy(croppedTexture);
+            Destroy(resizedCroppedTexture);
         }
 
         Debug.Log("Images saved successfully in the 'cropped_images' folder.");
+        DataTransfer.state_cdt = true;
     }
 
     // Resize a Texture2D to the specified dimensions

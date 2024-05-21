@@ -91,7 +91,7 @@ public class SpriteCreator : MonoBehaviour
 
         // bool allBellsClicked = true;
 
-        duration = Time.time - startTime;
+        duration = Mathf.Round((Time.time-startTime) * 100f) / 100f;
 
         DataTransfer.score_bell = clickedBellTags.Count;
         DataTransfer.time_bell = duration;

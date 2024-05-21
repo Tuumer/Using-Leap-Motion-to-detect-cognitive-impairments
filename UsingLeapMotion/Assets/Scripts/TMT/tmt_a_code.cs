@@ -89,7 +89,7 @@ namespace _Project
             if (Input.GetMouseButtonUp(0) && _isDrawing)
             {
                 float correctRatio = CountCorrectObjects();
-                duration = Time.time - startTime;
+                duration = Mathf.Round((Time.time-startTime) * 100f) / 100f;
 
                 DataTransfer.score_tmt_a = correctRatio;
                 DataTransfer.time_tmt_a = duration;

@@ -110,10 +110,10 @@ public class LineFollowingGame : MonoBehaviour
         else if (canvasPos.x >= lineEndX)
         {
             gameEnded = true;
-            duration = Time.time - startTime;
+            duration = Mathf.Round((Time.time-startTime) * 100f) / 100f;
 
             DataTransfer.score_line = (float)Math.Round(accuracy*100)/100;
-            DataTransfer.time_line = (float)Math.Round(duration*100)/100;
+            DataTransfer.time_line = duration;
 
 
             Debug.Log("Game Over."+"Accuracy: "+ accuracy + "Time: "+duration);

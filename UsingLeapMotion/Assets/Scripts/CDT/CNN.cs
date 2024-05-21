@@ -10,7 +10,16 @@ public class CNN : MonoBehaviour
     string outputFolder = "screenshots/cropped_images";
 
     float[] numberClasses = new float[8];
+    private int[] expectedClasses = new int[] { 1, 2, 3, 4, 5, 6, 7, 8 };
 
+    private float startTime;
+    private float duration;
+
+    void Start(){
+
+        startTime = Time.time;
+
+    }
     public void cnnStart()
     {
         for (int i = 0; i < numberClasses.Length; i++)
@@ -34,12 +43,18 @@ public class CNN : MonoBehaviour
             {
                 string imagePath = Path.Combine(Application.dataPath, outputFolder, $"img{i + 1}.png");
 
-                Debug.Log($"Looking for image at path: {imagePath}"); 
+                Debug.Log($"Looking for image at path: {imagePath}");
 
                 if (File.Exists(imagePath))
                 {
                     Texture2D imageTexture = LoadTexture(imagePath);
                     Tensor inputTensor = TransformImageToTensor(imageTexture);
+
+                    if (inputTensor == null)
+                    {
+                        Debug.LogError($"Failed to create input tensor for image at path: {imagePath}");
+                        continue;
+                    }
 
                     worker.Execute(inputTensor);
 
@@ -48,7 +63,7 @@ public class CNN : MonoBehaviour
 
                     numberClasses[i] = predictedClass;
 
-                    Debug.Log($"Predicted Class for Image {i + 1}: {predictedClass}"); 
+                    Debug.Log($"Predicted Class for Image {i + 1}: {predictedClass}");
 
                     inputTensor.Dispose();
                     outputTensor.Dispose();
@@ -61,6 +76,8 @@ public class CNN : MonoBehaviour
 
             // Log the predictions for debugging
             Debug.Log("Predicted Classes: " + string.Join(", ", numberClasses));
+
+            CalculateScore();
         }
     }
 
@@ -75,8 +92,19 @@ public class CNN : MonoBehaviour
     Tensor TransformImageToTensor(Texture2D texture)
     {
         // Assuming the model expects 3-channel 64x64 images
-        float[] floatValues = new float[3 * 64 * 64];
+        int width = texture.width;
+        int height = texture.height;
+        int channels = 3; // Assuming RGB channels
+
+        if (width != 64 || height != 64)
+        {
+            Debug.LogError($"Texture dimensions are not 64x64. Actual dimensions: {width}x{height}");
+            return null;
+        }
+
+        float[] floatValues = new float[channels * width * height];
         Color32[] pixels = texture.GetPixels32();
+
         for (int i = 0; i < pixels.Length; i++)
         {
             floatValues[i * 3 + 0] = pixels[i].r / 255.0f;
@@ -84,7 +112,7 @@ public class CNN : MonoBehaviour
             floatValues[i * 3 + 2] = pixels[i].b / 255.0f;
         }
 
-        return new Tensor(1, 64, 64, 3, floatValues);
+        return new Tensor(1, height, width, channels, floatValues);
     }
 
     int GetPredictedClass(Tensor outputTensor)
@@ -100,6 +128,27 @@ public class CNN : MonoBehaviour
             }
         }
         return predictedClass;
+    }
+    
+    private void CalculateScore()
+    {
+        int correctPredictions = 0;
+
+        for (int i = 0; i < numberClasses.Length; i++)
+        {
+            if (numberClasses[i] == expectedClasses[i])
+            {
+                correctPredictions++;
+            }
+        }
+
+        float score = (float)correctPredictions / expectedClasses.Length * 100;
+        duration = Mathf.Round((Time.time-startTime) * 100f) / 100f;
+
+        Debug.Log($"Score: {score}% ({correctPredictions}/{expectedClasses.Length} correct predictions)");
+
+        DataTransfer.score_cdt = correctPredictions;
+        DataTransfer.time_cdt = duration;
     }
 
     void OnDestroy()
