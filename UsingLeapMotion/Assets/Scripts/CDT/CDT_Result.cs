@@ -1,18 +1,25 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CDT_Result : MonoBehaviour
 {
-    // Start is called before the first frame update
+    private MouseDraw mouseDraw;
+    private float hour;
+    private float minute;
+    private float sum;
+
     void Start()
     {
-        
+        mouseDraw = FindObjectOfType<MouseDraw>();
+
+        hour = mouseDraw.GetHourResult();
+        minute = mouseDraw.GetMinuteResult();
+
+        sum = hour + minute;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void LogSum()
     {
-        
+        UnityEngine.Debug.Log("Sum: " + sum);
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -51,7 +52,7 @@ public class MouseDraw : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
         public float GetDrawnPercentage()
         {
-            return (float)((DrawnPixels * 100) / TotalPixels);
+            return ((float)DrawnPixels * 100) / TotalPixels;
         }
 
         private static int CalculateTotalPixels(Rect boundary, float rotation)
@@ -73,8 +74,8 @@ public class MouseDraw : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     {
         Init();
         // Initialize object boundaries independently
-        ObjectBoundaries.Add(new ObjectBoundary(new Rect(700, 141, 100, 400), Color.red, -60)); 
-        ObjectBoundaries.Add(new ObjectBoundary(new Rect(439, 250, 100, 400), Color.blue, 30)); 
+        ObjectBoundaries.Add(new ObjectBoundary(new Rect(700, 141, 100, 400), Color.red, -60));
+        ObjectBoundaries.Add(new ObjectBoundary(new Rect(439, 250, 100, 400), Color.blue, 30));
 
     }
 
@@ -268,10 +269,21 @@ public class MouseDraw : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     public void OnPointerExit(PointerEventData eventData) => IsInFocus = false;
 
+
     public void DisplayPercentages()
     {
-        Debug.Log("Hour: " + ObjectBoundaries[0].GetDrawnPercentage());
-        Debug.Log("Minutes: " + ObjectBoundaries[1].GetDrawnPercentage());
+        UnityEngine.Debug.Log("Hour: " + ObjectBoundaries[0].GetDrawnPercentage());
+        UnityEngine.Debug.Log("Minutes: " + ObjectBoundaries[1].GetDrawnPercentage());
+    }
+
+    public float GetHourResult()
+    {
+        return ObjectBoundaries[0].GetDrawnPercentage();
+    }
+
+    public float GetMinuteResult()
+    {
+        return ObjectBoundaries[1].GetDrawnPercentage();
     }
 
     private bool IsPointInRotatedRect(Vector2 point, Rect rect, float rotation)
