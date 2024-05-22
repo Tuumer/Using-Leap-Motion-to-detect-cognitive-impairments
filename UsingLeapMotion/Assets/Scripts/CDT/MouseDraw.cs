@@ -51,7 +51,7 @@ public class MouseDraw : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
         public float GetDrawnPercentage()
         {
-            return (float)DrawnPixels / TotalPixels * 100;
+            return (float)((DrawnPixels * 100) / TotalPixels);
         }
 
         private static int CalculateTotalPixels(Rect boundary, float rotation)
@@ -268,7 +268,7 @@ public class MouseDraw : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     public void OnPointerExit(PointerEventData eventData) => IsInFocus = false;
 
-    void DisplayPercentages()
+    public void DisplayPercentages()
     {
         Debug.Log("Hour: " + ObjectBoundaries[0].GetDrawnPercentage());
         Debug.Log("Minutes: " + ObjectBoundaries[1].GetDrawnPercentage());
