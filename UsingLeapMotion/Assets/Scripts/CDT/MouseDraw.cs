@@ -17,7 +17,6 @@ public class MouseDraw : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     [Tooltip("Toggles between Pen and Eraser.")]
     public bool IsEraser = false;
-    public GameObject hourArrow;
     private bool _isInFocus = false;
     public bool IsInFocus
     {
