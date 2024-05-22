@@ -292,14 +292,6 @@ public class MouseDraw : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
             return 10f; // Or handle this situation appropriately
     }
 
-    public float GetHourResult(){
-        return ObjectBoundaries[0].GetDrawnPercentage();
-    }
-
-    public float GetMinuteResult(){
-        return ObjectBoundaries[1].GetDrawnPercentage();
-    }
-
     private bool IsPointInRotatedRect(Vector2 point, Rect rect, float rotation)
     {
         Vector2 localPoint = point - new Vector2(rect.x + rect.width / 2, rect.y + rect.height / 2);
