@@ -62,6 +62,7 @@ void Start()
        && button_result!=null){
 
         button_result.SetActive(true);
+        DataTransfer.all_test_finished = true;
     }
 
 

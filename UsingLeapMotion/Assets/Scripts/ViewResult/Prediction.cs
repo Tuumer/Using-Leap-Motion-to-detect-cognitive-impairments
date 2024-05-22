@@ -13,79 +13,91 @@ public class Predictor : MonoBehaviour
     private Model runtimeModel;
     private IWorker worker;
 
-    public TextMeshProUGUI inputValue;
     public TextMeshProUGUI predictionOutput;
 
-    void Start()
-    {
-
-        if( DataTransfer.state_cdt == true){
-
-        
-        runtimeModel = ModelLoader.Load(modelAsset);
-        worker = WorkerFactory.CreateWorker(WorkerFactory.Type.ComputePrecompiled, runtimeModel);
-        Predict();
-        
-        }
-    }
 
     public void Predict()
     {
+
+        runtimeModel = ModelLoader.Load(modelAsset);
+        worker = WorkerFactory.CreateWorker(WorkerFactory.Type.ComputePrecompiled, runtimeModel);
     
-        float[] numberInput = new float[3];
+        float[] numberInput = new float[16];
 
-        string[] inputs = inputValue.text.Split(',');
+        if(DataManagement.gender=="Female") numberInput[0] = 0;
+        else numberInput[1]=1;
 
-        for (int i = 0; i < inputs.Length; i++)
-        {
-            Debug.Log($"Input {i}: '{inputs[i]}'");
+        numberInput[0]= DataManagement.age;
+        numberInput[2]=  DataTransfer.score_tmt_a + DataTransfer.score_tmt_b;
+        numberInput[3]=   DataTransfer.score_cdt;
+        numberInput[4]=    DataTransfer.score_bell;
+        numberInput[5]=    DataTransfer.score_line;
+        numberInput[6]=    DataTransfer.time_tmt_a + DataTransfer.time_tmt_b;
+        numberInput[7]=    DataTransfer.time_cdt;
+        numberInput[8]=   DataTransfer.time_bell;
+        numberInput[9]=   DataTransfer.time_line; 
+        numberInput[10]=  LineFollowingGame.meanX;
+        numberInput[11]=  LineFollowingGame.sdX;
+        numberInput[12]=  LineFollowingGame.meanY;
+        numberInput[13]=  LineFollowingGame.sdY;
+        numberInput[14]=  LineFollowingGame.meanZ;
+        numberInput[15]=  LineFollowingGame.sdZ;
+
+        for(int i =0;i<numberInput.Length;i++){
+            Debug.Log(numberInput[i]);
         }
+        
+        bool parseSuccess = true;
+      
 
-        if (inputs.Length == 3)
-        {
-            bool parseSuccess = true;
-            for (int i = 0; i < 3; i++)
+        if (parseSuccess)
+    {
+        
+            // Create a 4D tensor with shape (0, 1, 1, 16)
+            TensorShape inputShape = new TensorShape(0, 1, 1, 16);
+            Tensor inputTensor = new Tensor(inputShape, numberInput);
+
+            // Execute the worker
+            worker.Execute(inputTensor);
+
+            // Get the output tensor
+            Tensor outputTensor = worker.PeekOutput();
+
+            // Get the prediction from the output tensor
+            float prediction = outputTensor[0];
+
+            Debug.Log("Class of prediction: "+ prediction);
+
+            // Display the prediction
+            float threshold = 0.5f;
+
+            // Check if the prediction is above the threshold
+            if (prediction >= threshold)
             {
-                string cleanedInput = Regex.Replace(inputs[i].Trim(), @"[^\d.-]", "");
-                if (string.IsNullOrEmpty(cleanedInput) || !float.TryParse(cleanedInput, NumberStyles.Float, CultureInfo.InvariantCulture, out numberInput[i]))
-                {
-                    Debug.LogError($"Failed to parse input {i}: '{inputs[i]}' (cleaned: '{cleanedInput}')");
-                    parseSuccess = false;
-                }
-                else
-                {
-                    Debug.Log($"Parsed input {i} successfully: {numberInput[i]}");
-                }
-            }
-
-            if (parseSuccess)
-            {
-                Tensor inputTensor = new Tensor(1, 3, numberInput);
-
-                worker.Execute(inputTensor);
-
-                Tensor outputTensor = worker.PeekOutput();
-
-                float prediction = outputTensor[0];
-
-                predictionOutput.text = prediction.ToString();
-
-                inputTensor.Dispose();
-                outputTensor.Dispose();
+                predictionOutput.text = "Alzheimer's (Class 1)";
             }
             else
             {
-                predictionOutput.text = "Invalid input: failed to parse one or more inputs.";
+                predictionOutput.text = "Normal Cognitive (Class 0)";
             }
-        }
-        else
-        {
-            predictionOutput.text = "Invalid input: please provide exactly three comma-separated numbers.";
-        }
+
+            // Dispose tensors
+            inputTensor.Dispose();
+            outputTensor.Dispose();
+
+    }
+    else
+    {
+        Debug.LogError("Invalid input: failed to parse one or more inputs.");
+        predictionOutput.text = "Invalid input: failed to parse one or more inputs.";
+    }
     }
 
     void OnDestroy()
     {
-        worker.Dispose();
+        if(worker!=null){
+            worker.Dispose();
+        }
+        
     }
 }

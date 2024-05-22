@@ -5,6 +5,8 @@ using System.Data;
 using Mono.Data.Sqlite;
 using UnityEngine.UI;
 using TMPro;
+using System.Globalization;
+using System.Text.RegularExpressions;
 
 public class DataManagement : MonoBehaviour
 {
@@ -16,20 +18,36 @@ public class DataManagement : MonoBehaviour
     public Toggle togl;
     public TextMeshProUGUI buttonText;
 
+    public static string gender;
+    public static float age;
 
     string database_name = "URI=file:" + Application.dataPath + "/Resources/leapmotion.db";
     
     public void addEntry(){
             
-            string gender = togl.isOn ? "Male" : "Female";
+        gender = togl.isOn ? "Male" : "Female";
+            
 
-            Debug.Log(gender);
+        string birthDateText = birthDate.text.Trim();
+
+        birthDateText = Regex.Replace(birthDateText, @"[^0-9.,]", "");
+
+        // Attempt to parse the text to a float using the invariant culture
+        if (float.TryParse(birthDateText, NumberStyles.Float, CultureInfo.InvariantCulture, out age))
+        {
+            Debug.Log("Conversion successful. Age: " + age);
+        }
+        else
+        {
+            Debug.LogError("Conversion failed. The text is not a valid float: " + birthDateText);
+        }
+
 
         using(var connection = new SqliteConnection(database_name)){
             connection.Open();
 
             using(var command = connection.CreateCommand()){
-                command.CommandText = "INSERT INTO Patient (Full_name, birth_date, sex) VALUES(@fullName, @birthDate, @gender)";
+                command.CommandText = "INSERT INTO Patient (Full_name, age, sex) VALUES(@fullName, @birthDate, @gender)";
                 command.Parameters.AddWithValue("@fullName", full_name.text);
                 command.Parameters.AddWithValue("@birthDate", birthDate.text);
                 command.Parameters.AddWithValue("@gender", gender);

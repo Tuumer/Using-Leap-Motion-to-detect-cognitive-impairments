@@ -27,6 +27,8 @@ public class DataTransfer : MonoBehaviour
 
     public static string handoTrail;
 
+    public static bool all_test_finished;
+
     //In the result page
     public TextMeshProUGUI text_score_line;
     public TextMeshProUGUI text_time_line;

@@ -34,6 +34,25 @@ public class LineFollowingGame : MonoBehaviour
     private float startTime;
     private float duration;
     private float accuracy;
+
+
+    private float sumX = 0f;
+    private float sumY = 0f;
+    private float sumZ = 0f;
+
+    private float sumSquaredDiffX = 0f;
+    private float sumSquaredDiffY = 0f;
+    private float sumSquaredDiffZ = 0f;
+
+    public static float meanX;
+    public static float meanY;
+    public static float meanZ;
+    public static float squaredDiffX;
+    public static float squaredDiffY;
+    public static float squaredDiffZ;
+    public static float sdX;
+    public static float sdY;
+    public static float sdZ;
     
 
     private void Start()
@@ -105,7 +124,34 @@ public class LineFollowingGame : MonoBehaviour
             coveredDistanceText.text = $"Covered Distance: {coveredDistance}";
             scoreText.text = $"Accuracy: {accuracy}%";
 
+
+            
             handTrail.Add(handPosition);
+
+
+            sumX += handPosition.x;
+            sumY += handPosition.y;
+            sumZ += handPosition.z;
+
+            int numPoints = handTrail.Count;
+
+            meanX = sumX / numPoints;
+            meanY = sumY / numPoints;
+            meanZ = sumZ / numPoints;
+
+            squaredDiffX = (handPosition.x - meanX) * (handPosition.x - meanX);
+            squaredDiffY = (handPosition.y - meanY) * (handPosition.y - meanY);
+            squaredDiffZ = (handPosition.z - meanZ) * (handPosition.z - meanZ);
+
+            sumSquaredDiffX += squaredDiffX;
+            sumSquaredDiffY += squaredDiffY;
+            sumSquaredDiffZ += squaredDiffZ;
+
+            sdX = Mathf.Sqrt(sumSquaredDiffX / numPoints);
+            sdY = Mathf.Sqrt(sumSquaredDiffY / numPoints);
+            sdZ = Mathf.Sqrt(sumSquaredDiffZ / numPoints);
+
+            
         }
         else if (canvasPos.x >= lineEndX)
         {
@@ -117,6 +163,9 @@ public class LineFollowingGame : MonoBehaviour
 
 
             Debug.Log("Game Over."+"Accuracy: "+ accuracy + "Time: "+duration);
+
+            Debug.Log($"Mean Hand Position: ({meanX}, {meanY}, {meanZ})");
+            Debug.Log($"STD: ({sdX}, {sdY}, {sdZ})");
 
             SaveHandTrailToJson();
         }
@@ -163,12 +212,12 @@ public class LineFollowingGame : MonoBehaviour
     private class HandTrailData
     {
         public List<Vector3> trail;
-        public float duration;
+        
 
         public HandTrailData(List<Vector3> trail)
         {
             this.trail = trail;
-            this.duration=duration;
+            
         }
     }
 }
