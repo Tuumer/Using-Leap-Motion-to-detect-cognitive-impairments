@@ -29,7 +29,7 @@ public class MouseDraw : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     private float m_scaleFactor = 10;
     private RawImage m_image;
     private Vector2? m_lastPos;
-    [SerializeField] Text _timerText;
+    [SerializeField] UnityEngine.UI.Text _timerText; // Specify UnityEngine.UI.Text
 
     public int eraserRadius = 20;
 
@@ -74,9 +74,8 @@ public class MouseDraw : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     {
         Init();
         // Initialize object boundaries independently
-        ObjectBoundaries.Add(new ObjectBoundary(new Rect(700, 141, 100, 400), Color.red, -60));
-        ObjectBoundaries.Add(new ObjectBoundary(new Rect(439, 250, 100, 400), Color.blue, 30));
-
+        ObjectBoundaries.Add(new ObjectBoundary(new Rect(700, 141, 100, 330), Color.red, -60));
+        ObjectBoundaries.Add(new ObjectBoundary(new Rect(439, 250, 100, 330), Color.blue, 30));
     }
 
     private void OnEnable()
@@ -111,6 +110,8 @@ public class MouseDraw : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         {
             DisplayPercentages();
         }
+
+        DrawObjectBoundaries(); // Ensure boundaries are drawn
     }
 
     void UpdateTimer()
@@ -269,7 +270,6 @@ public class MouseDraw : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     public void OnPointerExit(PointerEventData eventData) => IsInFocus = false;
 
-
     public void DisplayPercentages()
     {
         UnityEngine.Debug.Log("Hour: " + ObjectBoundaries[0].GetDrawnPercentage());
@@ -305,5 +305,40 @@ public class MouseDraw : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
         return Mathf.Abs(localX) <= rect.width / 2 && Mathf.Abs(localY) <= rect.height / 2;
     }
-}
 
+    private void DrawObjectBoundaries()
+    {
+        var tex2d = CreateWritableTexture(m_image.texture);
+
+        foreach (var obj in ObjectBoundaries)
+        {
+            DrawBoundary(tex2d, obj);
+        }
+
+        tex2d.Apply();
+        m_image.texture = tex2d;
+    }
+
+    private void DrawBoundary(Texture2D tex2d, ObjectBoundary obj)
+    {
+        Vector2 center = new Vector2(obj.Boundary.x + obj.Boundary.width / 2, obj.Boundary.y + obj.Boundary.height / 2);
+        float rad = obj.Rotation * Mathf.Deg2Rad;
+        float cos = Mathf.Cos(rad);
+        float sin = Mathf.Sin(rad);
+
+        for (int x = 0; x < obj.Boundary.width; x++)
+        {
+            for (int y = 0; y < obj.Boundary.height; y++)
+            {
+                Vector2 localPoint = new Vector2(x - obj.Boundary.width / 2, y - obj.Boundary.height / 2);
+                float rotatedX = cos * localPoint.x - sin * localPoint.y;
+                float rotatedY = sin * localPoint.x + cos * localPoint.y;
+                Vector2 worldPoint = center + new Vector2(rotatedX, rotatedY);
+                if (worldPoint.x >= 0 && worldPoint.x < tex2d.width && worldPoint.y >= 0 && worldPoint.y < tex2d.height)
+                {
+                    tex2d.SetPixel((int)worldPoint.x, (int)worldPoint.y, obj.ObjectColor);
+                }
+            }
+        }
+    }
+}
