@@ -74,7 +74,7 @@ public class MouseDraw : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     {
         Init();
         // Initialize object boundaries independently
-        ObjectBoundaries.Add(new ObjectBoundary(new Rect(0, 0, 165, 50), Color.red, 0));
+        ObjectBoundaries.Add(new ObjectBoundary(new Rect(565, 540, 165, 50), Color.red, 0));
         ObjectBoundaries.Add(new ObjectBoundary(new Rect(0, 0, 165, 50), Color.blue, 0));
     }
 
