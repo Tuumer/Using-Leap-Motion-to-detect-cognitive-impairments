@@ -981,6 +981,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d4f7003ae954d5408199ca4cdf324a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  button: {fileID: 1106362249}
 --- !u!1 &1101160170
 GameObject:
   m_ObjectHideFlags: 0
@@ -1128,7 +1129,6 @@ GameObject:
   - component: {fileID: 1106362250}
   - component: {fileID: 1106362249}
   - component: {fileID: 1106362252}
-  - component: {fileID: 1106362253}
   m_Layer: 5
   m_Name: ButtonFinish
   m_TagString: Untagged
@@ -1268,18 +1268,6 @@ MonoBehaviour:
   ellipseImage: {fileID: 2119210255}
   ellipseImage1: {fileID: 1464078334}
   empty: {fileID: 0}
---- !u!114 &1106362253
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1106362247}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d4f7003ae954d5408199ca4cdf324a1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1189180807
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,18 +1,27 @@
 using UnityEngine;
-using UnityEngine.UI; // Required for UI elements
+using UnityEngine.UI;
 using System.Diagnostics;
 
 public class CDT_Python : MonoBehaviour
 {
+    // Reference to the button object in the Unity Editor
+    public Button button;
+
     void Start()
     {
-        // Find the button component in the scene
-        Button button = GetComponent<Button>();
-        // Add a listener for when the button is clicked
-        button.onClick.AddListener(OnClick);
+        // Check if the button reference is assigned
+        if (button != null)
+        {
+            // Add a listener for when the button is clicked
+            button.onClick.AddListener(OnClick);
+        }
+        else
+        {
+            UnityEngine.Debug.LogError("Button reference is not assigned. Please assign it in the Unity Editor.");
+        }
     }
 
-    void OnClick()
+    public void OnClick()
     {
         // Path to your Python script
         string pythonScriptPath = @"C:\Users\Sarah\Documents\GitHub\Using-Leap-Motion-to-detect-cognitive-impairments\UsingLeapMotion\Assets\new_python_script.py";
