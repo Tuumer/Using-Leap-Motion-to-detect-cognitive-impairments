@@ -306,6 +306,8 @@ public class MouseDraw : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         return Mathf.Abs(localX) <= rect.width / 2 && Mathf.Abs(localY) <= rect.height / 2;
     }
 
+    /*
+    
     private void DrawObjectBoundaries()
     {
         var tex2d = CreateWritableTexture(m_image.texture);
@@ -341,4 +343,6 @@ public class MouseDraw : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
             }
         }
     }
+
+    */
 }
