@@ -111,7 +111,7 @@ public class MouseDraw : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
             DisplayPercentages();
         }
 
-        DrawObjectBoundaries(); // Ensure boundaries are drawn
+        //DrawObjectBoundaries(); // Ensure boundaries are drawn
     }
 
     void UpdateTimer()
