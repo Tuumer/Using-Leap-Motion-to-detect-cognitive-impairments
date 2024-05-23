@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import tensorflow as tf
 from tensorflow.keras.models import load_model
 
-model = load_model('model_simple_save.h5')
+model = load_model('Assets/Models/model_simple_save.h5')
 
 
 
@@ -81,7 +81,7 @@ def predict_processed_image(img_tri):
     class_indices = {'0': 0, '1': 1, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9}
     ind_to_class = {v: k for k, v in class_indices.items()}
     predicted_class = ind_to_class[result[0].argmax()]
-
+    plt.imshow(img_tri)
     return predicted_class
 
 
@@ -125,6 +125,7 @@ for number in range(8):
     predicted_class = predict_processed_image(img_tri_process_triangle(img, number))
     predicted_classes.append(predicted_class)
     print("For number:", true_classes[number], "Predicted class:", predicted_class)
+    plt.show()
 
 true_count = count_predicted_classes(predicted_classes)
 print("Predicted classes array:", predicted_classes)
