@@ -1,4 +1,5 @@
 import UnityEngine
+import os
 import cv2
 import numpy as np
 import matplotlib.pyplot as plt
@@ -115,23 +116,23 @@ def count_predicted_classes(predicted_classes):
     return count
 
 
-def main():
-    img = cv2.imread("screenshot-2024-05-17-08-31-30.png")
-    img = 255 - img
-    predicted_classes = []
-    for number in range(8):
-        predicted_class = predict_processed_image(img_tri_process_triangle(img, number))
-        predicted_classes.append(predicted_class)
-        print("For number:", number, "Predicted class:", predicted_class)
-        
-    print("Predicted classes array:", predicted_classes)
-    true_count = count_predicted_classes(predicted_classes)
-    print("Number of true conditions:", true_count)
-    
-    return true_count
 
+img = cv2.imread("Assets/screenshots/aaa.png")
+img = 255 - img
+true_classes = [1, 2, 4, 5, 7, 8, 10, 11]
+predicted_classes = []
+for number in range(8):
+    predicted_class = predict_processed_image(img_tri_process_triangle(img, number))
+    predicted_classes.append(predicted_class)
+    print("For number:", true_classes[number], "Predicted class:", predicted_class)
 
-if __name__ == "__main__":
-    true_count = main()
-    print(true_count)
-    UnityEngine.Debug.Log(true_count)
+true_count = count_predicted_classes(predicted_classes)
+print("Predicted classes array:", predicted_classes)
+print("Number of true conditions:", true_count)
+UnityEngine.Debug.Log(true_count)
+
+file_path = os.path.join("Assets", "T_Python", "true_count.txt")
+
+# Write true_count to the file
+with open(file_path, "w") as file:
+    file.write(str(true_count))

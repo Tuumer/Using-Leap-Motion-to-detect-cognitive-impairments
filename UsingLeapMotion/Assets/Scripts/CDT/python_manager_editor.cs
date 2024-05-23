@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEditor;
 using UnityEditor.Scripting.Python;
-using System.Diagnostics;
 
 [CustomEditor(typeof(python_manager))]
 public class python_manager_editor : Editor
@@ -17,7 +16,7 @@ public class python_manager_editor : Editor
     {
         if (GUILayout.Button("Launch PY Script", GUILayout.Height(35)))
         {
-            string path = Application.dataPath + "/T_Python/new_python_script.py"; // Corrected path concatenation
+            string path = Application.dataPath + "/T_Python/new_python_script.py";
             PythonRunner.RunFile(path);
         }
     }

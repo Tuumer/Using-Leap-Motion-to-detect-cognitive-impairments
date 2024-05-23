@@ -1,4 +1,7 @@
+using System;
+using System.IO;
 using UnityEngine;
+using static System.Net.Mime.MediaTypeNames;
 
 public class CDT_Result : MonoBehaviour
 {
@@ -32,7 +35,23 @@ public class CDT_Result : MonoBehaviour
             minute_score = 0;
         }
 
-        float sum = hour_score + minute_score;
+
+
+        float cnn_score = 0;
+
+        string filePath = Path.Combine(UnityEngine.Application.dataPath, "T_Python", "true_count.txt");
+
+        try
+        {
+            string trueCountString = File.ReadAllText(filePath);
+            cnn_score = float.Parse(trueCountString);
+        }
+        catch (Exception e)
+        {
+            UnityEngine.Debug.LogError("Failed to read true_count from file: " + e.Message);
+        }
+
+        float sum = hour_score + minute_score + cnn_score;
         UnityEngine.Debug.Log("CDT Result: " + sum);
     }
 }
