@@ -40,6 +40,19 @@ public class CDT_Python : MonoBehaviour
             using (System.IO.StreamReader reader = process.StandardOutput)
             {
                 string result = reader.ReadToEnd();
+
+                // Log the raw result
+                UnityEngine.Debug.Log("Raw result from Python script: " + result);
+
+                // Check if the result is empty
+                if (string.IsNullOrEmpty(result))
+                {
+                    // Log an error indicating that the result is empty
+                    UnityEngine.Debug.LogError("Result is empty or invalid.");
+                    return; // Exit the method
+                }
+
+                // Try parsing the result
                 int trueCount;
                 if (int.TryParse(result, out trueCount))
                 {
@@ -54,4 +67,5 @@ public class CDT_Python : MonoBehaviour
             }
         }
     }
+
 }
