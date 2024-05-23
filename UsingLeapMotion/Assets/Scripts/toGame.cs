@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class toGame : MonoBehaviour
 {
@@ -20,6 +21,9 @@ public class toGame : MonoBehaviour
     private GameObject cdt_post;
     private GameObject cdt;
     private GameObject button_result;
+    private GameObject text_up;
+
+    private TextMeshProUGUI text_display;
 
 void Start()
 {
@@ -32,6 +36,9 @@ void Start()
     cdt_post = GameObject.Find("Canvas/NotMainMenu/ButtonCDT (Post)");
     cdt = GameObject.Find("Canvas/NotMainMenu/ButtonCDT");
     button_result = GameObject.Find("Canvas/NotMainMenu/ButtonResult");
+
+    text_up = GameObject.Find("Canvas/NotMainMenu/TextUp");
+    
 
 }
 
@@ -59,10 +66,17 @@ void Start()
     }
 
     if(DataTransfer.state_bell && DataTransfer.state_line && DataTransfer.state_tmt_a && DataTransfer.state_tmt_b  && DataTransfer.state_cdt
-       && button_result!=null){
+       && button_result!=null && text_up!=null){
+
 
         button_result.SetActive(true);
         DataTransfer.all_test_finished = true;
+
+        text_display = text_up.GetComponent<TextMeshProUGUI>();
+
+        if(text_display!=null){
+            text_display.text = "All tests finished. Click the results button to see your diagnosis!";
+        }
     }
 
 

@@ -7,9 +7,14 @@ public class CDT_Result : MonoBehaviour
 {
     private MouseDraw mouseDraw;
 
+    private float startTime;
+    private float duration;
+
     void Start()
     {
         mouseDraw = FindObjectOfType<MouseDraw>();
+        startTime = Time.time;
+        
     }
 
     public void LogSum()
@@ -51,7 +56,13 @@ public class CDT_Result : MonoBehaviour
             UnityEngine.Debug.LogError("Failed to read true_count from file: " + e.Message);
         }
 
+        duration = Mathf.Round((Time.time-startTime) * 100f) / 100f;
+        DataTransfer.time_cdt=duration;
+        DataTransfer.state_cdt = true;
+
         float sum = hour_score + minute_score + cnn_score;
         UnityEngine.Debug.Log("CDT Result: " + sum);
+
+        DataTransfer.score_cdt = sum;
     }
 }

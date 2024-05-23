@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import tensorflow as tf
 from tensorflow.keras.models import load_model
 
-model = load_model('model_simple_save.h5')
+model = load_model('Assets/Models/model_simple_save.h5')
 
 
 
