@@ -133,5 +133,6 @@ def main():
 
 if __name__ == "__main__":
     true_count = main()
+    print("True count:", true_count)  # For debugging purposes
+    # Return the true count as a string, which can be parsed by C#
     print(true_count)
-    UnityEngine.Debug.Log(true_count)
