@@ -4118,7 +4118,7 @@ Transform:
   m_GameObject: {fileID: 784773206}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 1, z: 0.009}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 0.7500001, y: 0.7500001, z: 9.356102}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5137,6 +5137,10 @@ PrefabInstance:
     - target: {fileID: 7243408544792633850, guid: 23a7ea6949a2e574cb20208567eb513f, type: 3}
       propertyPath: m_Name
       value: timertext
+      objectReference: {fileID: 0}
+    - target: {fileID: 7243408544792633850, guid: 23a7ea6949a2e574cb20208567eb513f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8154695803977227288, guid: 23a7ea6949a2e574cb20208567eb513f, type: 3}
       propertyPath: m_Pivot.x
@@ -7834,7 +7838,7 @@ Transform:
   m_GameObject: {fileID: 1773259576}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -0.001, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 0.7500001, y: 0.7500001, z: 9.356102}
   m_ConstrainProportionsScale: 0
   m_Children: []
