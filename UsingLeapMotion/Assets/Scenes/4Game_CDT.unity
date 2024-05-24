@@ -631,18 +631,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 280279175}
-        m_TargetAssemblyTypeName: python_manager, Assembly-CSharp
-        m_MethodName: CNN_Python
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 861116991}
         m_TargetAssemblyTypeName: CDT_Result, Assembly-CSharp
         m_MethodName: LogSum
@@ -1106,8 +1094,8 @@ GameObject:
   - component: {fileID: 1106362248}
   - component: {fileID: 1106362251}
   - component: {fileID: 1106362250}
-  - component: {fileID: 1106362249}
   - component: {fileID: 1106362252}
+  - component: {fileID: 1106362249}
   m_Layer: 5
   m_Name: ButtonFinish
   m_TagString: Untagged
@@ -1182,6 +1170,18 @@ MonoBehaviour:
       - m_Target: {fileID: 1293737262}
         m_TargetAssemblyTypeName: MouseDraw, Assembly-CSharp
         m_MethodName: DisplayPercentages
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 280279175}
+        m_TargetAssemblyTypeName: python_manager, Assembly-CSharp
+        m_MethodName: CNN_Python
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
