@@ -190,6 +190,7 @@ public class DataTransfer : MonoBehaviour
         state_tmt_a = false;
         state_tmt_b = false;
         state_cdt = false;
+        state_bell = false;
         state_line = false;
         all_test_finished = false;
         
