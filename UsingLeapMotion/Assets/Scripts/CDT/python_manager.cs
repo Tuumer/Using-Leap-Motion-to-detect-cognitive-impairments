@@ -9,4 +9,11 @@ public class python_manager : MonoBehaviour
         string path = Application.dataPath + "/T_Python/new_python_script.py";
         PythonRunner.RunFile(path);
     }
+
+    public void class_predict(){
+
+        string path = Application.dataPath + "/T_Python/classification_model.py";
+        PythonRunner.RunFile(path);
+
+    }
 }

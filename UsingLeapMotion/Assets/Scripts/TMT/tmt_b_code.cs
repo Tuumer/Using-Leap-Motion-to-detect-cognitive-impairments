@@ -19,6 +19,9 @@ namespace _Project
         private float startTime;
         private float duration;
 
+        [SerializeField]
+        private GameObject popup;
+
         private void Start()
         {
             _mainCamera = Camera.main;
@@ -97,6 +100,8 @@ namespace _Project
 
 
                 Debug.Log("Ratio of correct objects selected: " + correctRatio + "/" + expectedTags.Length);
+
+                popup.SetActive(true); // попап который автоматом выходит, поменяй только после того как он все 25 отметит
                 _isDrawing = false;
                 connectedObjects.Clear();
                 DeActiveDrawing();

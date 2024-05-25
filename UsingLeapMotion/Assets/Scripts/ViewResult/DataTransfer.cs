@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Unity.Barracuda;
+using System.IO;
+using System.Globalization;
 
 public class DataTransfer : MonoBehaviour
 {
@@ -28,6 +30,8 @@ public class DataTransfer : MonoBehaviour
     public static string handoTrail;
 
     public static bool all_test_finished;
+
+    public static float prediction;
 
     //In the result page
     public TextMeshProUGUI text_score_line;
@@ -102,6 +106,93 @@ public class DataTransfer : MonoBehaviour
         text_acc_cdt_secondary.text=$"{score_cdt/10*100}%";
 
 
+    }
+
+    public void pass_to_file(){
+
+        float[] numberInput = new float[16];
+
+        if(DataManagement.gender=="Female") numberInput[0] = 0;
+        else numberInput[1]=1;
+
+        numberInput[0]= DataManagement.age;
+        numberInput[2]=  DataTransfer.score_tmt_a + DataTransfer.score_tmt_b;
+        numberInput[3]=   DataTransfer.score_cdt;
+        numberInput[4]=    DataTransfer.score_bell;
+        numberInput[5]=    DataTransfer.score_line;
+        numberInput[6]=    DataTransfer.time_tmt_a + DataTransfer.time_tmt_b;
+        numberInput[7]=    DataTransfer.time_cdt;
+        numberInput[8]=   DataTransfer.time_bell;
+        numberInput[9]=   DataTransfer.time_line; 
+        numberInput[10]=  LineFollowingGame.meanX;
+        numberInput[11]=  LineFollowingGame.sdX;
+        numberInput[12]=  LineFollowingGame.meanY;
+        numberInput[13]=  LineFollowingGame.sdY;
+        numberInput[14]=  LineFollowingGame.meanZ;
+        numberInput[15]=  LineFollowingGame.sdZ;
+
+        // numberInput[0] = 34;
+        // numberInput[1] = 0;
+        // numberInput[2] = 0;
+        // numberInput[3] = 2;
+        // numberInput[4] = 14;
+        // numberInput[5] = 36;
+        // numberInput[6] = 95;
+        // numberInput[7] = 56;
+        // numberInput[8] = 87;
+        // numberInput[9] = 9;
+        // numberInput[10] = -0.019950f;
+        // numberInput[11] = 0.258664f;
+        // numberInput[12] = -0.043977f;
+        // numberInput[13] = 0.004848f;
+        // numberInput[14] = 0.543692f;
+        // numberInput[15] = 0.006484f;
+
+
+        string filePath = Path.Combine(Application.dataPath,"T_Python", "numberInput.txt");
+        using (StreamWriter writer = new StreamWriter(filePath))
+        {
+            foreach (float number in numberInput)
+            {
+                // writer.WriteLine(number);
+                writer.WriteLine(number.ToString(CultureInfo.InvariantCulture));
+            }
+        }
+
+    }
+
+    public void load_class(){
+
+        string filePath = Path.Combine(Application.dataPath,"T_Python", "status_prediction.txt");
+
+        if (File.Exists(filePath))
+        {
+            string predictionString = File.ReadAllText(filePath);
+            if (float.TryParse(predictionString, NumberStyles.Float, CultureInfo.InvariantCulture, out prediction))
+            {
+                Debug.Log("Loaded prediction: " + prediction);
+                
+            }
+            else
+            {
+                Debug.LogError("Failed to parse prediction.");
+            }
+        }
+        else
+        {
+            Debug.LogError("Prediction file not found.");
+        }
+
+    }
+
+    public void reset_results(){
+
+        state_tmt_a = false;
+        state_tmt_b = false;
+        state_cdt = false;
+        state_line = false;
+        all_test_finished = false;
+        
     }
 
 

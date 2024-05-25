@@ -55,6 +55,9 @@ public class LineFollowingGame : MonoBehaviour
     public static float sdZ;
     
 
+    [SerializeField]
+    private GameObject popup;
+
     private void Start()
     {
         hostCanvas = FindObjectOfType<Canvas>();
@@ -160,6 +163,11 @@ public class LineFollowingGame : MonoBehaviour
 
             DataTransfer.score_line = (float)Math.Round(accuracy*100)/100;
             DataTransfer.time_line = duration;
+            DataTransfer.state_line = true;
+
+            if(popup!=null){
+                popup.SetActive(true);
+            }
 
 
             Debug.Log("Game Over."+"Accuracy: "+ accuracy + "Time: "+duration);
@@ -189,11 +197,6 @@ public class LineFollowingGame : MonoBehaviour
     void OnUpdateFrame(Frame frame)
     {
         hand = frame.Hands.Count > 0 ? frame.Hands[0] : null;
-    }
-
-    public void checks()
-    {
-        DataTransfer.state_line = true;
     }
 
     void SaveHandTrailToJson()

@@ -21,6 +21,8 @@ public class toGame : MonoBehaviour
     private GameObject cdt_post;
     private GameObject cdt;
     private GameObject button_result;
+
+
     private GameObject text_up;
 
     private TextMeshProUGUI text_display;
@@ -38,6 +40,7 @@ void Start()
     button_result = GameObject.Find("Canvas/NotMainMenu/ButtonResult");
 
     text_up = GameObject.Find("Canvas/NotMainMenu/TextUp");
+
     
 
 }
@@ -75,10 +78,33 @@ void Start()
         text_display = text_up.GetComponent<TextMeshProUGUI>();
 
         if(text_display!=null){
-            text_display.text = "All tests finished. Click the results button to see your diagnosis!";
-        }
-    }
 
+            text_display.text = "All tests finished. Click the results button to see your diagnosis!";
+
+
+        }
+        // if(resultat!=null){
+
+
+        //     if(DataTransfer.prediction==0){
+                
+        //         resultat_text.text="Normal Cognitive";
+
+        //     }
+        //     else if( DataTransfer.prediction==1){
+                
+        //         resultat_text.text="Mild Cognitive";
+
+        //     }
+        //     else if(DataTransfer.prediction==2){
+
+        //         resultat_text.text="Alzheimer!";
+
+        //     }
+
+            
+        // }
+    }
 
 
     } 
