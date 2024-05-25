@@ -8685,6 +8685,32 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   _timerText: {fileID: 1096213671}
+  spherelist:
+  - {fileID: 273518066}
+  - {fileID: 771710640}
+  - {fileID: 479129817}
+  - {fileID: 269773613}
+  - {fileID: 606377443}
+  - {fileID: 1208500543}
+  - {fileID: 1820791920}
+  - {fileID: 1311503859}
+  - {fileID: 536600619}
+  - {fileID: 173473050}
+  - {fileID: 37148394}
+  - {fileID: 963679043}
+  - {fileID: 1488792967}
+  - {fileID: 126770612}
+  - {fileID: 1391184901}
+  - {fileID: 1110318805}
+  - {fileID: 972442857}
+  - {fileID: 26563639}
+  - {fileID: 588682809}
+  - {fileID: 798459685}
+  - {fileID: 634384162}
+  - {fileID: 1430644369}
+  - {fileID: 983130859}
+  - {fileID: 332712661}
+  - {fileID: 340336135}
   popup: {fileID: 1245315550}
 --- !u!4 &2024905769
 Transform:

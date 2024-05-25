@@ -15,6 +15,7 @@ namespace _Project
         private int currentSphereIndex = 0;
         string[] expectedTags = { "tmtstart", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "endtmt" };
         [SerializeField] Text _timerText;
+        public List<GameObject> spherelist = new List<GameObject>(25);
 
         private float startTime;
         private float duration;
@@ -80,6 +81,10 @@ namespace _Project
                         {
                             sphereRenderer.material.color = Color.red;
                         }
+                        if (connectedObjects.Count ==25 &&targetObject.CompareTag("endtmt") )
+                        {
+                                popup.SetActive(true);
+                        }
                     }
 
                 }
@@ -101,7 +106,6 @@ namespace _Project
 
                 Debug.Log("Ratio of correct objects selected: " + correctRatio + "/" + expectedTags.Length);
 
-                popup.SetActive(true); // попап который автоматом выходит, поменяй только после того как он все 25 отметит
                 _isDrawing = false;
                 connectedObjects.Clear();
                 DeActiveDrawing();
@@ -194,6 +198,66 @@ namespace _Project
                 lineRen.positionCount = drawPositions.Count;
                 lineRen.SetPositions(drawPositions.ToArray());
             }
+        }
+
+
+
+        public void ResetButton()
+        {
+            Debug.Log("Reset button pressed");
+
+            foreach (var targetObject in connectedObjects)
+            {
+                if (targetObject != null)
+                {
+                    var renderer = targetObject.GetComponent<Renderer>();
+                    if (renderer != null)
+                    {
+                        renderer.material.color = Color.white;
+                        Debug.Log($"Reset color for: {targetObject.name}");
+                    }
+                    else
+                    {
+                        Debug.LogWarning($"No Renderer found on: {targetObject.name}");
+                    }
+                }
+                else
+                {
+                    Debug.LogWarning("Null targetObject in connectedObjects list");
+                }
+            }
+
+            foreach (var targetObject in spherelist)
+            {
+                if (targetObject != null)
+                {
+                    var renderer = targetObject.GetComponent<Renderer>();
+                    if (renderer != null)
+                    {
+                        renderer.material.color = Color.white;
+                        Debug.Log($"Reset color for: {targetObject.name}");
+                    }
+                    else
+                    {
+                        Debug.LogWarning($"No Renderer found on: {targetObject.name}");
+                    }
+                }
+                else
+                {
+                    Debug.LogWarning("Null targetObject in connectedObjects list");
+                }
+            }
+
+            lineRen.positionCount = 0;
+            lineRen.gameObject.SetActive(false);
+            drawPositions.Clear();
+            connectedObjects.Clear();
+            currentSphereIndex = 0;
+
+            startTime = Time.time;
+            Debug.Log(startTime);
+
+
         }
     }
 }

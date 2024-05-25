@@ -1,19 +1,24 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions.Must;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 namespace _Project
 {
     public class tmt_a_code : MonoBehaviour
     {
         public List<GameObject> connectedObjects = new List<GameObject>();
+
+        public List<GameObject> spherelist = new List<GameObject>(25);
         public List<Vector3> drawPositions = new List<Vector3>();
         public LineRenderer lineRen;
         public LayerMask targetLayerMask;
         private Camera _mainCamera;
         private bool _isDrawing;
         private int currentSphereIndex = 0;
-        string[] expectedTags = { "tmtstart", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13","14", "15", "16", "17", "18", "19","20", "21", "22", "23", "24", "endtmt" };
+        string[] expectedTags = { "tmtstart", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "endtmt" };
         [SerializeField] Text _timerText;
         private float startTime;
         private float duration;
@@ -27,9 +32,6 @@ namespace _Project
             _mainCamera = Camera.main;
             HideAllSpheresExceptFirst();
             startTime = Time.time;
-        }
-        public void Reset(){
-
         }
 
         private void Update()
@@ -59,6 +61,7 @@ namespace _Project
                 if (Physics.Raycast(ray, out var raycastHit, 1080f, targetLayerMask))
                 {
                     var targetObject = raycastHit.transform.gameObject;
+
                     if (!connectedObjects.Contains(targetObject))
                     {
                         if (targetObject.CompareTag("tmtstart"))
@@ -84,8 +87,14 @@ namespace _Project
                             sphereRenderer.material.color = Color.red;
                         }
 
+
+                        if (connectedObjects.Count ==25 &&targetObject.CompareTag("endtmt") )
+                        {
+                                popup.SetActive(true);
+                        }
+
                     }
-                    
+
                 }
 
                 DrawLine();
@@ -95,7 +104,7 @@ namespace _Project
             if (Input.GetMouseButtonUp(0) && _isDrawing)
             {
                 float correctRatio = CountCorrectObjects();
-                duration = Mathf.Round((Time.time-startTime) * 100f) / 100f;
+                duration = Mathf.Round((Time.time - startTime) * 100f) / 100f;
 
                 DataTransfer.score_tmt_a = correctRatio;
                 DataTransfer.time_tmt_a = duration;
@@ -103,7 +112,7 @@ namespace _Project
 
 
                 Debug.Log("Ratio of correct objects selected: " + correctRatio + "/" + expectedTags.Length);
-                popup.SetActive(true); // попап который автоматом выходит, поменяй только после того как он все 25 отметит
+                // popup.SetActive(true); // попап который автоматом выходит, поменяй только после того как он все 25 отметит
                 _isDrawing = false;
                 connectedObjects.Clear();
                 DeActiveDrawing();
@@ -120,13 +129,13 @@ namespace _Project
             return ray;
         }
         void UpdateTimer()
-    {
-        float timeElapsed = Time.time;
-        if (_timerText != null)
         {
-            _timerText.text = "Time Elapsed: " + Mathf.FloorToInt(timeElapsed).ToString();
+            float timeElapsed = Time.time;
+            if (_timerText != null)
+            {
+                _timerText.text = "Time Elapsed: " + Mathf.FloorToInt(timeElapsed).ToString();
+            }
         }
-    }
 
         public void DrawLine()
         {
@@ -173,6 +182,10 @@ namespace _Project
                     correctCount++;
                 }
             }
+            if (connectedObjects.Count == expectedTags.Length)
+            {
+                popup.SetActive(true);
+            }
 
             return (float)correctCount;
         }
@@ -197,5 +210,65 @@ namespace _Project
                 lineRen.SetPositions(drawPositions.ToArray());
             }
         }
+        public void ResetButton()
+        {
+            Debug.Log("Reset button pressed");
+
+            foreach (var targetObject in connectedObjects)
+            {
+                if (targetObject != null)
+                {
+                    var renderer = targetObject.GetComponent<Renderer>();
+                    if (renderer != null)
+                    {
+                        renderer.material.color = Color.white;
+                        Debug.Log($"Reset color for: {targetObject.name}");
+                    }
+                    else
+                    {
+                        Debug.LogWarning($"No Renderer found on: {targetObject.name}");
+                    }
+                }
+                else
+                {
+                    Debug.LogWarning("Null targetObject in connectedObjects list");
+                }
+            }
+
+            foreach (var targetObject in spherelist)
+            {
+                if (targetObject != null)
+                {
+                    var renderer = targetObject.GetComponent<Renderer>();
+                    if (renderer != null)
+                    {
+                        renderer.material.color = Color.white;
+                        Debug.Log($"Reset color for: {targetObject.name}");
+                    }
+                    else
+                    {
+                        Debug.LogWarning($"No Renderer found on: {targetObject.name}");
+                    }
+                }
+                else
+                {
+                    Debug.LogWarning("Null targetObject in connectedObjects list");
+                }
+            }
+
+            lineRen.positionCount = 0;
+            lineRen.gameObject.SetActive(false);
+            drawPositions.Clear();
+            connectedObjects.Clear();
+            currentSphereIndex = 0;
+
+            startTime = Time.time;
+            Debug.Log(startTime);
+
+
+        }
+
+
+
     }
 }
