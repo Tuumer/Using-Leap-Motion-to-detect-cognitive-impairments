@@ -73,12 +73,7 @@ namespace _Project
                         {
                             sphereRenderer.material.color = Color.red;
                         }
-
                     }
-
-
-
-
                 }
                 DrawLine();
             }

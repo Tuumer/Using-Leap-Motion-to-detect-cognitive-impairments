@@ -29329,7 +29329,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _timerText: {fileID: 613905}
   spritePrefab: {fileID: 7368339154234852405, guid: 47d6322b4acb91b4dbd28e711f950b1f, type: 3}
-  circleTexture: {fileID: 2800000, guid: f56988fbd4cec434f93fd33078da5e65, type: 3}
+  circleTexture: {fileID: 2800000, guid: d9ffa12db635a25469456e91aac2b5f7, type: 3}
   initialBellTags:
   - bell1
   - bell2

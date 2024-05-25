@@ -5121,9 +5121,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: _Project.tmt_a_code, Assembly-CSharp
-        m_MethodName: Reset
+      - m_Target: {fileID: 2024905768}
+        m_TargetAssemblyTypeName: _Project.tmt_b_code, Assembly-CSharp
+        m_MethodName: ResetButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

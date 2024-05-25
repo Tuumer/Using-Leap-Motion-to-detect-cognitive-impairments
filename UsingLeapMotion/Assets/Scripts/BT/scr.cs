@@ -48,7 +48,7 @@ public class SpriteCreator : MonoBehaviour
             mousePosition.z = 10f;
             Vector3 worldPosition = Camera.main.ScreenToWorldPoint(mousePosition);
             Instantiate(spritePrefab, worldPosition, Quaternion.identity);
-            DrawCircle(worldPosition, 0.05f);
+            DrawCircle(worldPosition, 0.35f);
             count++;
         }
 
