@@ -1193,8 +1193,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -25}
-  m_SizeDelta: {x: 1699, y: 650}
+  m_AnchoredPosition: {x: 0, y: -97}
+  m_SizeDelta: {x: 1750, y: 650}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &386454094
 MonoBehaviour:
@@ -1216,12 +1216,17 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "CogniQuest is an innovative application designed to offer a comprehensive
-    and engaging game-based assessment for mild cognitive impairment (MCI). In this
-    application 4 games:\n\u2022 Line Test: Measures cognitive flexibility and attention.\n\u2022
-    Trail Making Test: Evaluates visual attention, task switching, and processing
-    speed.\n\u2022 Bells Test: Assesses auditory attention and short-term memory.\n\u2022
-    Clock Drawing Test: Tests visuospatial skills, executive function, and memory."
+  m_text: "CogniQuest is an innovative application designed to assess and monitor
+    cognitive functions through four interactive games:\n\u2022 Line test: Identification
+    of the hand motor abilities. Patients should put hand on the start point, and
+    after 5 second countdown follow the line till the finish point.\n\u2022 Clock
+    Drawing Test: Assesses cognitive decline, focusing on dementia. Participants
+    draw clock to show specific time, providing insight into cognitive health.\n\u2022
+    Trail Making Test: Measures visual scanning, working memory, and task switching.
+    Participants connect circles in ascending order (TMT-A) or alternate between
+    numbers and letters (TMT-B).\n\u2022 Bells Test: The distribution of bells and
+    distractors helps evaluate neglect in different spatial areas. Participants circle
+    all the bells among various distractors on a sheet. "
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0402eedeb5bffe74eaf06425e6a46b73, type: 2}
   m_sharedMaterial: {fileID: 3766444667011345383, guid: 0402eedeb5bffe74eaf06425e6a46b73, type: 2}
@@ -3285,7 +3290,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Welcome to the game to assess mild cognitive impairment.
+  m_text: 'Welcome to the game to assess cognitive status.
 
 '
   m_isRightToLeft: 0
@@ -5191,7 +5196,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 240}
+  m_AnchoredPosition: {x: 0, y: 239}
   m_SizeDelta: {x: 500, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1069590648
@@ -5214,7 +5219,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: First, enter your details
+  m_text: Introduce yourself
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 951e0f640b4363149bfce4bc0fcde0dd, type: 2}
   m_sharedMaterial: {fileID: 1538233523348255129, guid: 951e0f640b4363149bfce4bc0fcde0dd, type: 2}
@@ -5241,8 +5246,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 40
-  m_fontSizeBase: 40
+  m_fontSize: 45
+  m_fontSizeBase: 45
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
