@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -79,7 +79,7 @@ void Start()
 
         if(text_display!=null){
 
-            text_display.text = "All tests finished. Click the results button to see your diagnosis!";
+            text_display.text = "All tests finished. Click the results button to see your diagnosis! ↓ ↓ ↓ ↓ ↓ ↓ ";
 
 
         }

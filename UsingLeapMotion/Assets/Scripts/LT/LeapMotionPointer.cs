@@ -199,6 +199,11 @@ public class LineFollowingGame : MonoBehaviour
         hand = frame.Hands.Count > 0 ? frame.Hands[0] : null;
     }
 
+    public void checks()
+    {
+        DataTransfer.state_line = true;
+    }
+
     void SaveHandTrailToJson()
     {
         string json = JsonUtility.ToJson(new HandTrailData(handTrail));
