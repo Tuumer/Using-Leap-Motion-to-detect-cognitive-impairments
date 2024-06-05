@@ -12616,8 +12616,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: Please draw a clock, put in all the numbers in the clock, and set the time
-    to 10 after 11. That is, the clock is at 11 and the minute is 10. When you are
-    ready, click on the button.
+    to 10 minutes past 11. That is, the clock is at 11 and the minute is 10. When
+    you are ready, click on the button.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0402eedeb5bffe74eaf06425e6a46b73, type: 2}
   m_sharedMaterial: {fileID: 3766444667011345383, guid: 0402eedeb5bffe74eaf06425e6a46b73, type: 2}
