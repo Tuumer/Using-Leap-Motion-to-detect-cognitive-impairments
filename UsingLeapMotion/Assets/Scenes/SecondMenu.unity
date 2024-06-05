@@ -3252,6 +3252,8 @@ MonoBehaviour:
   text_acc_tmt_secondary: {fileID: 877843195}
   text_acc_bell_secondary: {fileID: 809836685}
   text_acc_cdt_secondary: {fileID: 430202634}
+  text_prediction: {fileID: 1920261474}
+  text_advise: {fileID: 1616703198}
 --- !u!4 &518893031
 Transform:
   m_ObjectHideFlags: 0
@@ -8422,6 +8424,18 @@ MonoBehaviour:
       - m_Target: {fileID: 1489597961}
         m_TargetAssemblyTypeName: python_manager, Assembly-CSharp
         m_MethodName: class_predict
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 518893030}
+        m_TargetAssemblyTypeName: DataTransfer, Assembly-CSharp
+        m_MethodName: load_class
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
