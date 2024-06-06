@@ -8421,18 +8421,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 518893030}
-        m_TargetAssemblyTypeName: DataTransfer, Assembly-CSharp
-        m_MethodName: pass_to_file
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
       - m_Target: {fileID: 1489597961}
         m_TargetAssemblyTypeName: python_manager, Assembly-CSharp
         m_MethodName: class_predict
@@ -12507,7 +12495,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Please consult a doctor and take action!
+  m_text: Good job! Stay healthy.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0402eedeb5bffe74eaf06425e6a46b73, type: 2}
   m_sharedMaterial: {fileID: 3766444667011345383, guid: 0402eedeb5bffe74eaf06425e6a46b73, type: 2}
@@ -14760,7 +14748,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Mild Cognitive Impairments '
+  m_text: Normal Cognitive
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 951e0f640b4363149bfce4bc0fcde0dd, type: 2}
   m_sharedMaterial: {fileID: 1538233523348255129, guid: 951e0f640b4363149bfce4bc0fcde0dd, type: 2}
