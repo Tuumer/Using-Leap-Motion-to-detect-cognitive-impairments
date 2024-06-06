@@ -20,9 +20,13 @@ public class DataManagement : MonoBehaviour
 
     public static string gender;
     public static float age;
+    string database_name;
 
-    string database_name = "URI=file:" + Application.dataPath + "/Resources/leapmotion.db";
-    
+   // string database_name = "URI=file:" + Application.dataPath + "/Resources/leapmotion.db";
+   void Awake(){
+        database_name = "URI=file:" + "C:/Users/timug/OneDrive/Рабочий стол/Test build/UsingLeapMotion_Data/Resources/leapmotion.db";
+   }
+   
     public void addEntry(){
             
         gender = togl.isOn ? "Male" : "Female";

@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+#if UNITY_EDITOR
 using UnityEditor.Scripting.Python;
 
 public class python_manager : MonoBehaviour
@@ -17,3 +19,4 @@ public class python_manager : MonoBehaviour
 
     }
 }
+#endif

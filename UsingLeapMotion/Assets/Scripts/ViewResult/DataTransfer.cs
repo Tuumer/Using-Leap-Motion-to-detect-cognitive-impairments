@@ -64,6 +64,9 @@ public class DataTransfer : MonoBehaviour
     public TextMeshProUGUI text_acc_bell_secondary;
     public TextMeshProUGUI text_acc_cdt_secondary;
 
+    public TextMeshProUGUI text_prediction;
+    public TextMeshProUGUI text_advise;
+
     void Start()
     {
 
@@ -106,11 +109,14 @@ public class DataTransfer : MonoBehaviour
         text_acc_cdt_secondary.text=$"{score_cdt/10*100}%";
 
 
+        // if(all_test_finished)
+
+
     }
 
     public void pass_to_file(){
 
-        float[] numberInput = new float[16];
+        float[] numberInput = new float[14];
 
         if(DataManagement.gender=="Female") numberInput[0] = 0;
         else numberInput[1]=1;
@@ -121,15 +127,13 @@ public class DataTransfer : MonoBehaviour
         numberInput[4]=    DataTransfer.score_bell;
         numberInput[5]=    DataTransfer.score_line;
         numberInput[6]=    DataTransfer.time_tmt_a + DataTransfer.time_tmt_b;
-        numberInput[7]=    DataTransfer.time_cdt;
-        numberInput[8]=   DataTransfer.time_bell;
-        numberInput[9]=   DataTransfer.time_line; 
-        numberInput[10]=  LineFollowingGame.meanX;
-        numberInput[11]=  LineFollowingGame.sdX;
-        numberInput[12]=  LineFollowingGame.meanY;
-        numberInput[13]=  LineFollowingGame.sdY;
-        numberInput[14]=  LineFollowingGame.meanZ;
-        numberInput[15]=  LineFollowingGame.sdZ;
+        numberInput[7]=   DataTransfer.time_line; 
+        numberInput[8]=  LineFollowingGame.meanX;
+        numberInput[9]=  LineFollowingGame.sdX;
+        numberInput[10]=  LineFollowingGame.meanY;
+        numberInput[11]=  LineFollowingGame.sdY;
+        numberInput[12]=  LineFollowingGame.meanZ;
+        numberInput[13]=  LineFollowingGame.sdZ;
 
         // numberInput[0] = 34;
         // numberInput[1] = 0;
@@ -149,9 +153,13 @@ public class DataTransfer : MonoBehaviour
         // numberInput[15] = 0.006484f;
 
 
-        string filePath = Path.Combine(Application.dataPath,"T_Python", "numberInput.txt");
+       string filePath = Path.Combine(Application.dataPath,"T_Python", "numberInput.txt");
+
+        Debug.Log("Путь: "+ filePath);
         using (StreamWriter writer = new StreamWriter(filePath))
         {
+
+            Debug.Log("Hey-hey!");
             foreach (float number in numberInput)
             {
                 // writer.WriteLine(number);
@@ -171,7 +179,29 @@ public class DataTransfer : MonoBehaviour
             if (float.TryParse(predictionString, NumberStyles.Float, CultureInfo.InvariantCulture, out prediction))
             {
                 Debug.Log("Loaded prediction: " + prediction);
-                
+
+                if(text_prediction!=null&&text_advise!=null){
+
+                    if(prediction == 0){
+
+                        text_prediction.text = "Normal Cognitive";
+                        text_advise.text = "Good job! Stay healthy.";
+
+                    }
+                    else if( prediction == 1){
+
+                        text_prediction.text = "Mild Cognitive Impairments";
+                        text_advise.text = "You should take an appointment to the doctor";
+
+                    }
+                    else{
+
+                        text_prediction.text = "Alzheimer's Disease";
+                        text_advise.text = "Consult a doctor as soon as possible and take preventive measures!";
+
+                    }
+                }
+                 
             }
             else
             {

@@ -17,25 +17,25 @@ public class Screenshot : MonoBehaviour
         // Define the path for the existing screenshots folder
         screenshotFolder = Path.Combine(UnityEngine.Application.dataPath, "screenshots");
 
-        // Ensure the folder exists
-        if (!Directory.Exists(screenshotFolder))
-        {
-            UnityEngine.Debug.LogError("The specified screenshots folder does not exist: " + screenshotFolder);
-            return;
-        }
+        // // Ensure the folder exists
+        // if (!Directory.Exists(screenshotFolder))
+        // {
+        //     UnityEngine.Debug.LogError("The specified screenshots folder does not exist: " + screenshotFolder);
+        //     return;
+        // }
 
-        // Set up the screenshot button listener
-        if (screenshotButton != null)
-        {
-            screenshotButton.onClick.AddListener(CaptureScreenshot);
-        }
-        else
-        {
-            UnityEngine.Debug.LogError("Screenshot Button is not assigned!");
-        }
+        // // Set up the screenshot button listener
+        // if (screenshotButton != null)
+        // {
+        //     screenshotButton.onClick.AddListener(CaptureScreenshot);
+        // }
+        // else
+        // {
+        //     UnityEngine.Debug.LogError("Screenshot Button is not assigned!");
+        // }
     }
 
-    private void CaptureScreenshot()
+    public void CaptureScreenshot()
     {
         // Deactivate the ellipse image before taking the screenshot
         if (ellipseImage != null)

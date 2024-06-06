@@ -1179,9 +1179,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1293737262}
-        m_TargetAssemblyTypeName: MouseDraw, Assembly-CSharp
-        m_MethodName: DisplayPercentages
+      - m_Target: {fileID: 1106362252}
+        m_TargetAssemblyTypeName: Screenshot, Assembly-CSharp
+        m_MethodName: CaptureScreenshot
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
