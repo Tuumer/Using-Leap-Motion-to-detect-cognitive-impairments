@@ -1,14 +1,13 @@
 using UnityEngine;
-using UnityEngine.UI;
-using System;
 using System.IO;
+using System.Collections;
 
 public class Screenshot : MonoBehaviour
 {
-    public Button screenshotButton;
-    public GameObject popUp;
     public GameObject ellipseImage;
     public GameObject ellipseImage1;
+    public GameObject popUp;
+
     private string screenshotFolder;
 
     private void Start()
@@ -22,31 +21,22 @@ public class Screenshot : MonoBehaviour
             UnityEngine.Debug.LogError("The specified screenshots folder does not exist: " + screenshotFolder);
             return;
         }
-
-        // Set up the screenshot button listener
-        if (screenshotButton != null)
-        {
-            screenshotButton.onClick.AddListener(CaptureScreenshot);
-        }
-        else
-        {
-            UnityEngine.Debug.LogError("Screenshot Button is not assigned!");
-        }
     }
 
-    private void CaptureScreenshot()
+    // Method to capture a screenshot and manage UI elements
+    public void CaptureScreenshot()
     {
-        // Deactivate the ellipse image before taking the screenshot
-        if (ellipseImage != null)
-        {
-            ellipseImage.SetActive(false);
-        }
+        StartCoroutine(CaptureScreenshotProcess());
+    }
 
-        if(ellipseImage1 != null)
-        {
-            ellipseImage1.SetActive(false);
-        }
-        //ad.adad   
+    private IEnumerator CaptureScreenshotProcess()
+    {
+        // Deactivate the ellipse images before taking the screenshot
+        DeactivateEllipseImages();
+
+        // Wait a short time to ensure the images are deactivated
+        yield return new WaitForEndOfFrame();
+
         // Create the filename for the screenshot
         string filename = Path.Combine(screenshotFolder, "aaa.png");
         UnityEngine.Debug.Log("Saving screenshot to: " + filename);
@@ -54,52 +44,44 @@ public class Screenshot : MonoBehaviour
         // Capture the screenshot
         ScreenCapture.CaptureScreenshot(filename, 1); // Set scale factor to 1 for normal resolution
 
-        // Reactivate the ellipse image after taking the screenshot
+        // Wait for the screenshot to be captured
+        yield return new WaitForEndOfFrame();
+
+        // Reactivate the ellipse images after taking the screenshot
+        ActivateEllipseImages();
+
+        // Open the popup
+        if (popUp != null)
+        {
+            popUp.SetActive(true);
+        }
+    }
+
+    // Method to deactivate ellipse images
+    public void DeactivateEllipseImages()
+    {
         if (ellipseImage != null)
         {
-            Invoke("ActivateEllipseImage", 0.5f); // Adjust the delay as needed
+            ellipseImage.SetActive(false);
         }
 
         if (ellipseImage1 != null)
         {
-            Invoke("ActivateEllipseImage", 0.5f); // Adjust the delay as needed
+            ellipseImage1.SetActive(false);
         }
+    }
 
-        // Activate the pop-up if it is assigned
-        if (popUp != null)
+    // Method to activate ellipse images
+    public void ActivateEllipseImages()
+    {
+        if (ellipseImage != null)
         {
-            Invoke("ActivatePopUp", 0.5f);
+            ellipseImage.SetActive(true);
         }
-        else
+
+        if (ellipseImage1 != null)
         {
-            UnityEngine.Debug.LogError("PopUP GameObject is not assigned!");
+            ellipseImage1.SetActive(true);
         }
-    }
-
-    private void ActivateEllipseImage()
-    {
-        ellipseImage.SetActive(true);
-       
-    }
-
-    private void DeactivateEllipseImage()
-    {
-        ellipseImage.SetActive(false);
-    }
-
-    private void ActivateEllipseImage1()
-    {
-        ellipseImage1.SetActive(true);
-        
-    }
-
-    private void DeactivateEllipseImage1()
-    {
-        ellipseImage1.SetActive(false);
-    }
-
-    private void ActivatePopUp()
-    {
-        popUp.SetActive(true);
     }
 }
