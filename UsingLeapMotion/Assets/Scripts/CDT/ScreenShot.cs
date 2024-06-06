@@ -46,7 +46,7 @@ public class Screenshot : MonoBehaviour
         {
             ellipseImage1.SetActive(false);
         }
-
+        //ad.adad   
         // Create the filename for the screenshot
         string filename = Path.Combine(screenshotFolder, "aaa.png");
         UnityEngine.Debug.Log("Saving screenshot to: " + filename);
