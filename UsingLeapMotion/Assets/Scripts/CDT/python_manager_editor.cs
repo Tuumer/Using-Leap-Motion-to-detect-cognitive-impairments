@@ -1,6 +1,6 @@
-using UnityEngine;
-using UnityEditor;
 using UnityEditor.Scripting.Python;
+using UnityEditor;
+using UnityEngine;
 
 [CustomEditor(typeof(python_manager))]
 public class python_manager_editor : Editor
