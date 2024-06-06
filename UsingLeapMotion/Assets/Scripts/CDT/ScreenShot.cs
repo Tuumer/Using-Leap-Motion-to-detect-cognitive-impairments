@@ -85,7 +85,7 @@ public class Screenshot : MonoBehaviour
     private void ActivateEllipseImage()
     {
         ellipseImage.SetActive(true);
-        Invoke("DeactivateEllipseImage", 100.0f); // Deactivate the ellipse image after 2 seconds
+       
     }
 
     private void DeactivateEllipseImage()
@@ -96,7 +96,7 @@ public class Screenshot : MonoBehaviour
     private void ActivateEllipseImage1()
     {
         ellipseImage1.SetActive(true);
-        Invoke("DeactivateEllipseImage", 100.0f); // Deactivate the ellipse image after 2 seconds
+        
     }
 
     private void DeactivateEllipseImage1()
